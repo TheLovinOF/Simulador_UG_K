@@ -1,0 +1,881 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Simulacro • 40 preguntas • 60 min</title>
+    <style>
+        :root {
+            --bg1: #f6fbff;
+            --bg2: #e9f6ff;
+            --card: #ffffff;
+            --text: #0b2440;
+            --muted: #4a6a86;
+            --line: #cfe7f6;
+            --accent: #2aa8ff;
+            --accent2: #7fd3ff;
+            --good: #11a36a;
+            --bad: #d94141;
+            --shadow: 0 10px 30px rgba(0, 0, 0, .06);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial;
+            color: var(--text);
+            background: radial-gradient(1200px 600px at 20% 0%, var(--bg2), var(--bg1));
+        }
+
+        .wrap {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 18px;
+            padding-bottom: 70px;
+        }
+
+        .top {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, .92);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+        }
+
+        .brand {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            min-width: 260px;
+        }
+
+        .brand img {
+            width: 54px;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+        }
+
+        .title {
+            font-weight: 900;
+            letter-spacing: .2px;
+        }
+
+        .sub {
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 2px;
+        }
+
+        .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .pill {
+            padding: 8px 10px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            color: var(--muted);
+            background: #f7fcff;
+            font-size: 13px;
+        }
+
+        .timer {
+            color: var(--accent);
+            font-weight: 900;
+        }
+
+        .btn {
+            border: 1px solid var(--line);
+            background: linear-gradient(180deg, #ffffff, #f3fbff);
+            padding: 10px 12px;
+            border-radius: 14px;
+            cursor: pointer;
+            font-weight: 800;
+            color: var(--text);
+            box-shadow: 0 6px 16px rgba(42, 168, 255, .08);
+        }
+
+        .btn:hover {
+            border-color: #b8def4;
+        }
+
+        .btn.primary {
+            border-color: #bfe7ff;
+            background: linear-gradient(180deg, #e8f7ff, #dff3ff);
+        }
+
+        .btn.danger {
+            border-color: #ffd1d1;
+            background: linear-gradient(180deg, #fff5f5, #ffecec);
+            color: #8a1d1d;
+        }
+
+        .btn:disabled {
+            opacity: .55;
+            cursor: not-allowed;
+        }
+
+        .card {
+            margin-top: 14px;
+            padding: 16px;
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+        }
+
+        .progressbar {
+            height: 10px;
+            background: #eef7ff;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            overflow: hidden;
+            margin: 12px 0 4px;
+        }
+
+        .progressbar>div {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            border-radius: 999px;
+            transition: width .25s ease;
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        .qhead {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .qnum {
+            font-weight: 1000;
+            color: var(--accent);
+            min-width: 64px;
+        }
+
+        .tag {
+            font-size: 12px;
+            color: var(--muted);
+            border: 1px solid var(--line);
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: #f7fcff;
+            white-space: nowrap;
+        }
+
+        .qtext {
+            font-size: 18px;
+            font-weight: 900;
+            line-height: 1.25;
+            margin: 6px 0 0;
+        }
+
+        .opts {
+            display: grid;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .opt {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            padding: 12px 14px;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: #f7fcff;
+            cursor: pointer;
+            transition: transform .06s ease, border-color .2s ease, background .2s ease;
+            user-select: none;
+        }
+
+        .opt:hover {
+            border-color: #b8def4;
+        }
+
+        .opt:active {
+            transform: scale(.997);
+        }
+
+        .opt input {
+            margin-top: 3px;
+            transform: scale(1.15);
+        }
+
+        .opt.locked {
+            cursor: not-allowed;
+            opacity: .75;
+        }
+
+        .notice {
+            margin-top: 12px;
+            padding: 12px 14px;
+            border: 1px dashed var(--line);
+            border-radius: 16px;
+            background: #fbfeff;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .stat {
+            padding: 14px;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: #fbfeff;
+        }
+
+        .big {
+            font-size: 28px;
+            font-weight: 1000;
+        }
+
+        .good {
+            color: var(--good);
+        }
+
+        .bad {
+            color: var(--bad);
+        }
+
+        .field {
+            margin-top: 12px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .input {
+            padding: 12px 12px;
+            border-radius: 14px;
+            border: 1px solid var(--line);
+            background: #fff;
+            font-size: 16px;
+            width: 220px;
+        }
+
+        .calc {
+            margin-top: 10px;
+            padding: 12px 14px;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: #f7fcff;
+            color: var(--muted);
+            line-height: 1.35;
+            font-size: 13px;
+            white-space: pre-wrap;
+        }
+
+        /* Marca de agua (abajo) */
+        .watermark {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 10px;
+            text-align: center;
+            font-size: 12px;
+            color: rgba(11, 36, 64, .45);
+            pointer-events: none;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="top">
+            <div class="brand">
+                <img alt="UG logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6d/LogoUGcolor.png" />
+                <div>
+                    <div class="title">Simulacro • 40 preguntas • 60 minutos</div>
+                    <div class="sub">Una por una • sin retroceder • una vez eliges, se bloquea • orden aleatorio al
+                        reiniciar</div>
+                </div>
+            </div>
+
+            <div class="meta">
+                <div class="pill">Tiempo: <span class="timer" id="timer">60:00</span></div>
+                <div class="pill">Progreso: <span id="prog">0</span>/40</div>
+                <button class="btn primary" id="startBtn">Iniciar</button>
+                <button class="btn danger" id="finishBtn" disabled>Finalizar</button>
+                <button class="btn" id="resetBtn">Reiniciar</button>
+            </div>
+        </div>
+
+        <div class="card" id="quizCard">
+            <div class="progressbar">
+                <div id="bar"></div>
+            </div>
+            <div class="muted" id="hint" style="font-size:13px;">Presiona “Iniciar” para comenzar. Tienes 60 minutos.
+            </div>
+
+            <div id="qArea" class="hide">
+                <div class="qhead">
+                    <div>
+                        <div class="qnum" id="qNum">#1</div>
+                        <div class="qtext" id="qText"></div>
+                        <div class="muted" style="margin-top:6px;font-size:12px;">Tema: <span id="qTopic"></span></div>
+                    </div>
+                    <div class="tag" id="qTag"></div>
+                </div>
+
+                <div class="opts" id="opts"></div>
+
+                <div class="notice">
+                    Selecciona una opción. Se registrará y pasarás a la siguiente pregunta (no podrás cambiarla).
+                </div>
+            </div>
+        </div>
+
+        <div class="card hide" id="resultCard">
+            <div class="title">Resultados del simulacro</div>
+            <div class="sub">Puntaje del simulacro sobre 1000: (Correctas / 40) × 1000</div>
+
+            <div class="stats">
+                <div class="stat">
+                    <div class="muted">Correctas</div>
+                    <div class="big good" id="correct">0</div>
+                </div>
+                <div class="stat">
+                    <div class="muted">Incorrectas</div>
+                    <div class="big bad" id="wrong">0</div>
+                </div>
+                <div class="stat">
+                    <div class="muted">Puntaje simulacro / 1000</div>
+                    <div class="big" id="score1000">0</div>
+                </div>
+                <div class="stat">
+                    <div class="muted">Tiempo usado</div>
+                    <div class="big" id="used">0:00</div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top:14px;">
+                <div class="title" style="font-size:16px;">Cálculo de nota final</div>
+                <div class="sub">Ponderación 50% colegio y 50% examen (para coincidir con tu ejemplo).</div>
+
+                <div class="field">
+                    <input class="input" id="school" type="number" step="0.01" min="0" max="10"
+                        placeholder="Nota final del colegio (0–10)" />
+                    <button class="btn primary" id="calcBtn">Calcular nota final</button>
+                </div>
+
+                <div class="calc" id="calcBox"></div>
+                <div class="notice" style="margin-top:12px;">
+                    Fórmula usada:
+                    NotaFinal = (NotaColegio/10)×500 + (PuntajeSimulacro/1000)×500
+                    (Ej: 9.35 → 467.50 y 800 → 400.00, total 867.50)
+                </div>
+            </div>
+
+            <div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:12px;">
+                <button class="btn" id="backBtn">Volver</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="watermark">Creado por: Kelvin Z</div>
+
+    <script>
+        /* =========================
+           BANCO DE 40 PREGUNTAS (REALES)
+           ========================= */
+        const QUESTIONS_MASTER = [
+            // MATEMÁTICAS (20)
+            { topic: "Matemáticas", text: "La derivada de f(x)=7 es:", options: ["7", "1", "0", "x"], correct: 2 },
+            { topic: "Matemáticas", text: "La derivada de f(x)=3x^4 es:", options: ["12x^3", "3x^3", "4x^4", "x^4"], correct: 0 },
+            { topic: "Matemáticas", text: "Si f(x)=x^2+2x, entonces f'(3) =", options: ["6", "8", "10", "12"], correct: 2 },
+            { topic: "Matemáticas", text: "Un punto crítico (para optimización) se encuentra cuando:", options: ["f(x)=0", "f'(x)=0 o no existe", "f''(x)=0", "x=0"], correct: 1 },
+            {
+                topic: "Matemáticas", text: "Paso correcto para optimización (orden general):", options: [
+                    "Derivar → graficar → reemplazar datos → concluir",
+                    "Plantear modelo → derivar → hallar críticos → verificar → interpretar",
+                    "Integrar → derivar → despejar → concluir",
+                    "Sustituir valores → derivar → interpretar"
+                ], correct: 1
+            },
+            {
+                topic: "Matemáticas", text: "El Teorema Fundamental del Cálculo conecta principalmente:", options: [
+                    "Derivadas y límites",
+                    "Integrales definidas y derivadas",
+                    "Vectores y matrices",
+                    "Rectas y circunferencias"
+                ], correct: 1
+            },
+            {
+                topic: "Matemáticas", text: "Un vector fijo se caracteriza por:", options: [
+                    "Solo magnitud",
+                    "Magnitud y dirección sin punto de aplicación",
+                    "Magnitud, dirección, sentido y punto de aplicación",
+                    "Solo sentido"
+                ], correct: 2
+            },
+            {
+                topic: "Matemáticas", text: "Vectores equipolentes son los que tienen:", options: [
+                    "Mismo origen",
+                    "Igual magnitud, dirección y sentido",
+                    "Igual magnitud únicamente",
+                    "Igual dirección únicamente"
+                ], correct: 1
+            },
+            {
+                topic: "Matemáticas", text: "Se conoce como vector libre aquel:", options: [
+                    "Conjunto formado por todos los vectores libres",
+                    "Conjunto formado por todos los vectores fijos equipolentes a uno dado",
+                    "Vectores que solo tienen módulo",
+                    "Vectores que no tienen sentido"
+                ], correct: 1
+            },
+            { topic: "Matemáticas", text: "Si a=(2,-1) y b=(3,4), entonces a+b =", options: ["(5,3)", "(1,5)", "(6,4)", "(5,-5)"], correct: 0 },
+            { topic: "Matemáticas", text: "Si a=(1,2) y b=(2,0), entonces a·b =", options: ["0", "2", "4", "6"], correct: 1 },
+            { topic: "Matemáticas", text: "Punto medio entre P(2,5) y Q(6,1) es:", options: ["(4,3)", "(8,6)", "(2,1)", "(3,2)"], correct: 0 },
+            { topic: "Matemáticas", text: "Distancia entre (0,0) y (3,4) es:", options: ["5", "7", "1", "25"], correct: 0 },
+            { topic: "Matemáticas", text: "Ecuación general de la recta:", options: ["y=mx+b", "Ax+By+C=0", "(x-h)^2+(y-k)^2=r^2", "y^2=4px"], correct: 1 },
+            { topic: "Matemáticas", text: "Dos rectas son perpendiculares si:", options: ["m1=m2", "m1·m2=-1", "m1+m2=0", "m1·m2=1"], correct: 1 },
+            {
+                topic: "Matemáticas", text: "La mediatriz de un segmento es la recta que:", options: [
+                    "Pasa por un extremo y es paralela al segmento",
+                    "Es perpendicular al segmento y pasa por su punto medio",
+                    "Divide el segmento en tres partes iguales",
+                    "Tiene la misma pendiente que el segmento"
+                ], correct: 1
+            },
+            {
+                topic: "Matemáticas", text: "En un estudio estadístico, los conceptos correctos son:", options: [
+                    "Población, materia, variable descriptiva",
+                    "Estudio, población, media aritmética",
+                    "Población, individuo, variable estadística",
+                    "Población, número de casos, promedio"
+                ], correct: 2
+            },
+            { topic: "Matemáticas", text: "La medida de tendencia central más afectada por valores extremos es:", options: ["Mediana", "Moda", "Media", "Rango intercuartílico"], correct: 2 },
+            { topic: "Matemáticas", text: "“Se divide la distribución en cien partes iguales. Se representan por Pk”. ¿Cómo se denominan?", options: ["Percentiles", "Cuartiles", "Deciles", "Mediana"], correct: 0 },
+            {
+                topic: "Matemáticas", text: "En probabilidad, la probabilidad experimental se obtiene mediante:", options: [
+                    "Frecuencia relativa en ensayos repetidos",
+                    "Axiomas sin experimentar",
+                    "Una fórmula única que siempre da 1/2",
+                    "El producto de dos medias"
+                ], correct: 0
+            },
+
+            // LENGUAJE (12)
+            {
+                topic: "Lenguaje", text: "Homonimia: palabras que:", options: [
+                    "Tienen significados relacionados",
+                    "Suenan o se escriben igual pero significan distinto",
+                    "Son siempre tecnicismos",
+                    "Son extranjerismos"
+                ], correct: 1
+            },
+            {
+                topic: "Lenguaje", text: "Polisemia: una palabra que:", options: [
+                    "Tiene varios significados relacionados",
+                    "Tiene un solo significado",
+                    "Se escribe distinto pero suena igual",
+                    "No existe en el diccionario"
+                ], correct: 0
+            },
+            {
+                topic: "Lenguaje", text: "El ensayo argumentativo se caracteriza porque:", options: [
+                    "No expresa postura",
+                    "Tiene tesis (idea central) y argumentos",
+                    "Solo narra hechos",
+                    "Es una lista de definiciones"
+                ], correct: 1
+            },
+            {
+                topic: "Lenguaje", text: "El texto expositivo tiene como propósito principal:", options: [
+                    "Convencer",
+                    "Entretener con ficción",
+                    "Informar y explicar",
+                    "Crear suspenso"
+                ], correct: 2
+            },
+            {
+                topic: "Lenguaje", text: "El género épico se relaciona con:", options: [
+                    "Expresión de sentimientos (yo lírico)",
+                    "Narración de acciones y hechos (héroes, batallas, viajes)",
+                    "Diálogo teatral",
+                    "Instrucciones paso a paso"
+                ], correct: 1
+            },
+            {
+                topic: "Lenguaje", text: "¿Qué es una viñeta en un cómic?", options: [
+                    "Un tipo de globo de diálogo",
+                    "Un recuadro que representa un momento de la historia",
+                    "Un símbolo que indica movimiento",
+                    "Un recurso tipográfico"
+                ], correct: 1
+            },
+            {
+                topic: "Lenguaje", text: "¿Para qué se utilizan los globos o bocadillos en un cómic?", options: [
+                    "Para mostrar solo pensamientos",
+                    "Para incluir diálogo, pensamientos o narración",
+                    "Para representar movimiento",
+                    "Para separar viñetas"
+                ], correct: 1
+            },
+            {
+                topic: "Lenguaje", text: "La diglosia es:", options: [
+                    "Bilingüismo con educación equilibrada siempre",
+                    "Uso de dos lenguas con el mismo prestigio",
+                    "Situación sin relación con el prestigio social",
+                    "Bilingüismo donde una lengua tiene más prestigio que otra"
+                ], correct: 3
+            },
+            {
+                topic: "Lenguaje", text: "En el cómic, símbolos como estrellas o bombillas suelen representar:", options: [
+                    "El escenario de la acción",
+                    "Estados de ánimo o ideas",
+                    "El nombre del autor",
+                    "La velocidad del diálogo"
+                ], correct: 1
+            },
+            {
+                topic: "Lenguaje", text: "En el cómic, líneas curvas alrededor de la cabeza pueden indicar:", options: [
+                    "Que está corriendo",
+                    "Que está hablando en voz alta",
+                    "Que está mareado o sorprendido",
+                    "Que es el villano"
+                ], correct: 2
+            },
+            {
+                topic: "Lenguaje", text: "Lectura literal es:", options: [
+                    "Comprender información expresada directamente",
+                    "Inventar información que no aparece",
+                    "Interpretar sin base en el texto",
+                    "Cambiar la idea principal por una opinión"
+                ], correct: 0
+            },
+            {
+                topic: "Lenguaje", text: "Neologismos, préstamos y extranjerismos se refieren a:", options: [
+                    "Figuras retóricas únicamente",
+                    "Formas de crear/incorporar palabras al idioma",
+                    "Tipos de rima",
+                    "Partes de un resumen"
+                ], correct: 1
+            },
+
+            // FÍSICA (8)
+            {
+                topic: "Física", text: "Primera Ley de Newton (Inercia):", options: [
+                    "F=ma",
+                    "Acción y reacción",
+                    "Si la fuerza neta es cero, mantiene su estado de reposo o MRU",
+                    "La energía interna siempre aumenta"
+                ], correct: 2
+            },
+            { topic: "Física", text: "Segunda Ley de Newton:", options: ["F=ma", "v=d/t", "W=F·d", "p=m·v"], correct: 0 },
+            {
+                topic: "Física", text: "Tercera Ley de Newton:", options: [
+                    "Todo cuerpo cae igual",
+                    "A toda acción corresponde una reacción igual y opuesta",
+                    "La aceleración es constante",
+                    "La fuerza depende del área"
+                ], correct: 1
+            },
+            {
+                topic: "Física", text: "Desplazamiento es:", options: [
+                    "La distancia total recorrida",
+                    "El cambio de posición (vector) entre inicio y fin",
+                    "La rapidez",
+                    "El tiempo total"
+                ], correct: 1
+            },
+            {
+                topic: "Física", text: "Velocidad media se define como:", options: [
+                    "distancia/tiempo siempre",
+                    "desplazamiento/tiempo",
+                    "aceleración/tiempo",
+                    "fuerza/masa"
+                ], correct: 1
+            },
+            {
+                topic: "Física", text: "MRU se caracteriza por:", options: [
+                    "Aceleración constante distinta de cero",
+                    "Velocidad constante y aceleración cero",
+                    "Velocidad variable",
+                    "Trayectoria circular obligatoria"
+                ], correct: 1
+            },
+            {
+                topic: "Física", text: "Ley de Hooke (resorte ideal):", options: [
+                    "F=kx (fuerza proporcional a la deformación)",
+                    "F=G m1m2/r^2",
+                    "V=IR",
+                    "Q=mcΔT"
+                ], correct: 0
+            },
+            { topic: "Física", text: "El peso de un cuerpo se calcula como:", options: ["P = m·g", "P = m/g", "P = g/m", "P = m + g"], correct: 0 },
+        ];
+
+        /* ====== Orden del examen (se mezcla al iniciar y al reiniciar) ====== */
+        let QUESTIONS = [];
+
+        function shuffle(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+        function prepareNewExamOrder() {
+            QUESTIONS = shuffle(QUESTIONS_MASTER.map(q => ({
+                topic: q.topic,
+                text: q.text,
+                options: [...q.options],
+                correct: q.correct
+            })));
+        }
+
+        /* =========================
+           APP (UNA POR UNA, BLOQUEO, SIN RETROCEDER)
+           ========================= */
+        const timerEl = document.getElementById("timer");
+        const progEl = document.getElementById("prog");
+        const barEl = document.getElementById("bar");
+        const startBtn = document.getElementById("startBtn");
+        const finishBtn = document.getElementById("finishBtn");
+        const resetBtn = document.getElementById("resetBtn");
+
+        const hintEl = document.getElementById("hint");
+        const qArea = document.getElementById("qArea");
+        const qNum = document.getElementById("qNum");
+        const qText = document.getElementById("qText");
+        const qTopic = document.getElementById("qTopic");
+        const qTag = document.getElementById("qTag");
+        const optsEl = document.getElementById("opts");
+
+        const quizCard = document.getElementById("quizCard");
+        const resultCard = document.getElementById("resultCard");
+        const correctEl = document.getElementById("correct");
+        const wrongEl = document.getElementById("wrong");
+        const score1000El = document.getElementById("score1000");
+        const usedEl = document.getElementById("used");
+        const backBtn = document.getElementById("backBtn");
+
+        const schoolInp = document.getElementById("school");
+        const calcBtn = document.getElementById("calcBtn");
+        const calcBox = document.getElementById("calcBox");
+
+        let started = false;
+        let ended = false;
+        let idx = 0;
+        let totalTime = 60 * 60;
+        let timeLeft = totalTime;
+        let tick = null;
+
+        let answers = new Array(40).fill(null);
+
+        function formatTime(sec) {
+            const m = Math.floor(sec / 60);
+            const s = sec % 60;
+            return `${m}:${String(s).padStart(2, "0")}`;
+        }
+        function setTimer() {
+            timerEl.textContent = formatTime(timeLeft);
+            timerEl.style.color = (timeLeft <= 300) ? "var(--bad)" : "var(--accent)";
+        }
+        function updateProgress() {
+            progEl.textContent = String(idx);
+            barEl.style.width = `${Math.round((idx / 40) * 100)}%`;
+        }
+        function escapeHtml(str) {
+            return String(str)
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
+
+        function renderQuestion() {
+            const q = QUESTIONS[idx];
+            qNum.textContent = `#${idx + 1}`;
+            qText.textContent = q.text;
+            qTopic.textContent = q.topic;
+            qTag.textContent = q.topic;
+
+            optsEl.innerHTML = "";
+            q.options.forEach((opt, j) => {
+                const label = document.createElement("label");
+                label.className = "opt";
+                label.innerHTML = `<input type="radio" name="q" value="${j}" /><span>${escapeHtml(opt)}</span>`;
+
+                label.addEventListener("click", () => {
+                    if (!started || ended) return;
+                    if (answers[idx] !== null) return;
+
+                    answers[idx] = j;
+                    lockOptions();
+
+                    setTimeout(() => {
+                        idx++;
+                        updateProgress();
+                        if (idx >= 40) finish(false);
+                        else renderQuestion();
+                    }, 220);
+                });
+
+                optsEl.appendChild(label);
+            });
+        }
+
+        function lockOptions() {
+            optsEl.querySelectorAll('input[type="radio"]').forEach(r => r.disabled = true);
+            optsEl.querySelectorAll('.opt').forEach(l => l.classList.add("locked"));
+        }
+
+        function start() {
+            if (started || ended) return;
+            started = true;
+            startBtn.disabled = true;
+            finishBtn.disabled = false;
+            hintEl.textContent = "Responde. No puedes retroceder y no puedes cambiar una respuesta.";
+            qArea.classList.remove("hide");
+
+            idx = 0;
+            updateProgress();
+            renderQuestion();
+
+            tick = setInterval(() => {
+                timeLeft--;
+                if (timeLeft < 0) timeLeft = 0;
+                setTimer();
+                if (timeLeft === 0) finish(true);
+            }, 1000);
+        }
+
+        function computeScore() {
+            let correct = 0;
+            for (let i = 0; i < 40; i++) {
+                if (answers[i] === QUESTIONS[i].correct) correct++;
+            }
+            const wrong = 40 - correct;
+            const score1000 = Math.round((correct / 40) * 1000);
+            return { correct, wrong, score1000 };
+        }
+
+        function finish(auto) {
+            if (ended) return;
+            ended = true;
+            if (tick) clearInterval(tick);
+            finishBtn.disabled = true;
+
+            const used = totalTime - timeLeft;
+            const { correct, wrong, score1000 } = computeScore();
+
+            correctEl.textContent = correct;
+            wrongEl.textContent = wrong;
+            score1000El.textContent = score1000;
+            usedEl.textContent = formatTime(used);
+
+            calcBox.textContent = "";
+            schoolInp.value = "";
+            calcBtn.disabled = false;
+
+            quizCard.classList.add("hide");
+            resultCard.classList.remove("hide");
+            resultCard.dataset.score1000 = String(score1000);
+        }
+
+        function resetAll() {
+            if (tick) clearInterval(tick);
+
+            prepareNewExamOrder();     // orden aleatorio nuevo
+
+            started = false;
+            ended = false;
+            idx = 0;
+            timeLeft = totalTime;
+
+            answers = new Array(40).fill(null);
+
+            setTimer();
+            updateProgress();
+
+            startBtn.disabled = false;
+            finishBtn.disabled = true;
+
+            hintEl.textContent = "Presiona “Iniciar” para comenzar. Tienes 60 minutos. (Orden aleatorio cada vez)";
+            qArea.classList.add("hide");
+
+            quizCard.classList.remove("hide");
+            resultCard.classList.add("hide");
+        }
+
+        calcBtn.addEventListener("click", () => {
+            const score1000 = Number(resultCard.dataset.score1000 || "0");
+            const school = Number(schoolInp.value);
+
+            if (!Number.isFinite(school) || school < 0 || school > 10) {
+                calcBox.textContent = "Ingresa una nota válida del colegio entre 0.00 y 10.00.";
+                return;
+            }
+
+            const colegioParte = (school / 10) * 500;
+            const examenParte = (score1000 / 1000) * 500;
+            const final = colegioParte + examenParte;
+
+            const line1 = `Nota colegio: ${school.toFixed(2)} → (nota/10)×500 = (${school.toFixed(2)}/10)×500 = ${colegioParte.toFixed(2)}`;
+            const line2 = `Puntaje simulacro: ${score1000} → (puntaje/1000)×500 = (${score1000}/1000)×500 = ${examenParte.toFixed(2)}`;
+            const line3 = `NOTA FINAL = ${colegioParte.toFixed(2)} + ${examenParte.toFixed(2)} = ${final.toFixed(2)}`;
+
+            calcBox.textContent = `${line1}\n${line2}\n\n${line3}`;
+            calcBtn.disabled = true;
+        });
+
+        backBtn.addEventListener("click", () => {
+            resultCard.classList.add("hide");
+            quizCard.classList.remove("hide");
+            hintEl.textContent = "El simulacro ya terminó. Usa “Reiniciar” para un nuevo intento (orden aleatorio).";
+            qArea.classList.add("hide");
+        });
+
+        startBtn.addEventListener("click", start);
+        finishBtn.addEventListener("click", () => finish(false));
+        resetBtn.addEventListener("click", resetAll);
+
+        /* Orden aleatorio inicial (también cambia si refrescas la página) */
+        prepareNewExamOrder();
+        setTimer();
+        updateProgress();
+    </script>
+</body>
+
+</html>
