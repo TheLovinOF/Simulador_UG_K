@@ -5,6 +5,22 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Simulacro • 40 preguntas • 60 min</title>
+
+    <!-- Seguridad básica (reduce falsos positivos y bloquea cargas raras) -->
+    <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    base-uri 'none';
+    object-src 'none';
+    frame-ancestors 'none';
+    form-action 'none';
+    connect-src 'none';
+    img-src 'self' https://upload.wikimedia.org data:;
+    style-src 'self' 'unsafe-inline';
+    script-src 'self' 'unsafe-inline';
+    upgrade-insecure-requests;
+  ">
+    <meta name="referrer" content="no-referrer">
+
     <style>
         :root {
             --bg1: #f6fbff;
@@ -59,7 +75,7 @@
             display: flex;
             gap: 12px;
             align-items: center;
-            min-width: 260px;
+            min-width: 280px;
         }
 
         .brand img {
@@ -67,6 +83,8 @@
             height: auto;
             display: block;
             border-radius: 10px;
+            border: 1px solid var(--line);
+            background: #fff;
         }
 
         .title {
@@ -285,7 +303,7 @@
             border: 1px solid var(--line);
             background: #fff;
             font-size: 16px;
-            width: 220px;
+            width: 240px;
         }
 
         .calc {
@@ -300,7 +318,6 @@
             white-space: pre-wrap;
         }
 
-        /* Marca de agua (abajo) */
         .watermark {
             position: fixed;
             left: 0;
@@ -322,8 +339,8 @@
                 <img alt="UG logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6d/LogoUGcolor.png" />
                 <div>
                     <div class="title">Simulacro • 40 preguntas • 60 minutos</div>
-                    <div class="sub">Una por una • sin retroceder • una vez eliges, se bloquea • orden aleatorio al
-                        reiniciar</div>
+                    <div class="sub">Una por una • sin retroceder • respuesta bloqueada • orden aleatorio al reiniciar
+                    </div>
                 </div>
             </div>
 
@@ -386,7 +403,7 @@
 
             <div class="card" style="margin-top:14px;">
                 <div class="title" style="font-size:16px;">Cálculo de nota final</div>
-                <div class="sub">Ponderación 50% colegio y 50% examen (para coincidir con tu ejemplo).</div>
+                <div class="sub">Ponderación 50% colegio y 50% examen.</div>
 
                 <div class="field">
                     <input class="input" id="school" type="number" step="0.01" min="0" max="10"
@@ -395,6 +412,7 @@
                 </div>
 
                 <div class="calc" id="calcBox"></div>
+
                 <div class="notice" style="margin-top:12px;">
                     Fórmula usada:
                     NotaFinal = (NotaColegio/10)×500 + (PuntajeSimulacro/1000)×500
@@ -412,7 +430,7 @@
 
     <script>
         /* =========================
-           BANCO DE 40 PREGUNTAS (REALES)
+           BANCO DE 40 PREGUNTAS
            ========================= */
         const QUESTIONS_MASTER = [
             // MATEMÁTICAS (20)
@@ -644,9 +662,8 @@
             { topic: "Física", text: "El peso de un cuerpo se calcula como:", options: ["P = m·g", "P = m/g", "P = g/m", "P = m + g"], correct: 0 },
         ];
 
-        /* ====== Orden del examen (se mezcla al iniciar y al reiniciar) ====== */
+        /* ====== Orden del examen (se mezcla al cargar y al reiniciar) ====== */
         let QUESTIONS = [];
-
         function shuffle(arr) {
             for (let i = arr.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -715,14 +732,6 @@
             progEl.textContent = String(idx);
             barEl.style.width = `${Math.round((idx / 40) * 100)}%`;
         }
-        function escapeHtml(str) {
-            return String(str)
-                .replaceAll("&", "&amp;")
-                .replaceAll("<", "&lt;")
-                .replaceAll(">", "&gt;")
-                .replaceAll('"', "&quot;")
-                .replaceAll("'", "&#039;");
-        }
 
         function renderQuestion() {
             const q = QUESTIONS[idx];
@@ -735,7 +744,7 @@
             q.options.forEach((opt, j) => {
                 const label = document.createElement("label");
                 label.className = "opt";
-                label.innerHTML = `<input type="radio" name="q" value="${j}" /><span>${escapeHtml(opt)}</span>`;
+                label.innerHTML = `<input type="radio" name="q" value="${j}" /><span>${opt}</span>`;
 
                 label.addEventListener("click", () => {
                     if (!started || ended) return;
@@ -817,13 +826,12 @@
         function resetAll() {
             if (tick) clearInterval(tick);
 
-            prepareNewExamOrder();     // orden aleatorio nuevo
+            prepareNewExamOrder();
 
             started = false;
             ended = false;
             idx = 0;
             timeLeft = totalTime;
-
             answers = new Array(40).fill(null);
 
             setTimer();
@@ -848,6 +856,8 @@
                 return;
             }
 
+            // Coincide con tu ejemplo:
+            // 9.35 -> 467.50 (mitad de 935) y 800 -> 400.00 (mitad de 800) => 867.50
             const colegioParte = (school / 10) * 500;
             const examenParte = (score1000 / 1000) * 500;
             const final = colegioParte + examenParte;
@@ -871,7 +881,7 @@
         finishBtn.addEventListener("click", () => finish(false));
         resetBtn.addEventListener("click", resetAll);
 
-        /* Orden aleatorio inicial (también cambia si refrescas la página) */
+        // Orden aleatorio inicial
         prepareNewExamOrder();
         setTimer();
         updateProgress();
