@@ -930,6 +930,250 @@ function genFisica() {
     return out;
 }
 
+/* -------- Nuevos Temas -------- */
+function genMatematicasNuevas() {
+    const out = [];
+    // Propiedades de los números reales
+    out.push(q("Matemáticas", "N1", "Propiedades de los números reales", "La propiedad que establece que a + b = b + a se conoce como:", [
+        "Propiedad asociativa",
+        "Propiedad conmutativa",
+        "Propiedad distributiva",
+        "Elemento neutro"
+    ], 1));
+    out.push(q("Matemáticas", "N1", "Propiedades de los números reales", "La propiedad que establece que a(b + c) = ab + ac se llama:", [
+        "Propiedad conmutativa",
+        "Propiedad distributiva",
+        "Propiedad asociativa",
+        "Inverso multiplicativo"
+    ], 1));
+    out.push(q("Matemáticas", "N1", "Propiedades de los números reales", "El elemento neutro de la suma en los números reales es:", [
+        "1", "0", "-1", "Ninguno"
+    ], 1));
+
+    // Función de variable real
+    out.push(q("Matemáticas", "N2", "Función de variable real", "El conjunto de todos los valores posibles de entrada (x) para los cuales la función está definida se llama:", [
+        "Rango", "Codominio", "Dominio", "Imagen"
+    ], 2));
+    out.push(q("Matemáticas", "N2", "Función de variable real", "El conjunto de todos los valores de salida (y) de una función se llama:", [
+        "Dominio", "Rango o Imagen", "Abscisa", "Ordenada al origen"
+    ], 1));
+
+    // Matrices
+    out.push(q("Matemáticas", "N3", "Matrices", "¿Qué es una matriz en matemáticas?", [
+        "Un arreglo bidimensional de números ordenados en filas y columnas",
+        "Un número real positivo",
+        "Una función polinómica de tercer grado",
+        "Un tipo de vector unidimensional"
+    ], 0));
+    out.push(q("Matemáticas", "N3", "Matrices", "Para poder sumar dos matrices, estas deben cumplir que:", [
+        "Tengan el mismo número de filas y columnas (mismo orden)",
+        "El número de columnas de la primera sea igual al de filas de la segunda",
+        "Tengan determinante distinto de cero",
+        "Ambas sean matrices cuadradas"
+    ], 0));
+    out.push(q("Matemáticas", "N3", "Matrices", "El determinante solo se puede calcular en matrices:", [
+        "Rectangulares",
+        "Cuadradas",
+        "Fila",
+        "Nulas"
+    ], 1));
+
+    // Inecuaciones
+    out.push(q("Matemáticas", "N4", "Inecuaciones", "Al multiplicar o dividir ambos lados de una inecuación por un número negativo:", [
+        "La inecuación no cambia",
+        "Se invierte el sentido de la desigualdad",
+        "La inecuación se convierte en igualdad",
+        "Se elimina el número negativo"
+    ], 1));
+    out.push(q("Matemáticas", "N4", "Inecuaciones", "La solución de una inecuación lineal con una incógnita se representa generalmente como:", [
+        "Un solo punto",
+        "Un intervalo en la recta real",
+        "Una matriz",
+        "Un plano"
+    ], 1));
+
+    // Productos notables
+    out.push(q("Matemáticas", "N5", "Productos notables", "El desarrollo del binomio al cuadrado (a + b)² es:", [
+        "a² + b²",
+        "a² + ab + b²",
+        "a² + 2ab + b²",
+        "a² - 2ab + b²"
+    ], 2));
+    out.push(q("Matemáticas", "N5", "Productos notables", "La expresión (a - b)(a + b) es el desarrollo de un producto notable conocido como:", [
+        "Trinomio cuadrado perfecto",
+        "Diferencia de cuadrados (a² - b²)",
+        "Cubo de un binomio",
+        "Suma de cubos"
+    ], 1));
+    return out;
+}
+
+function genLenguajeNuevas() {
+    const out = [];
+    // Ortografía
+    out.push(q("Lenguaje", "N1", "Ortografía", "Las palabras agudas llevan tilde cuando:", [
+        "Terminan en vocal, n o s",
+        "Terminan en cualquier consonante menos n o s",
+        "Siempre llevan tilde",
+        "Terminan en vocal únicamente"
+    ], 0));
+    out.push(q("Lenguaje", "N1", "Ortografía", "Las palabras graves (o llanas) llevan tilde cuando:", [
+        "Terminan en vocal, n o s",
+        "Terminan en consonante que no sea n ni s",
+        "Son excepcionales y siempre la llevan",
+        "Tienen más de tres sílabas"
+    ], 1));
+    out.push(q("Lenguaje", "N1", "Ortografía", "Las palabras esdrújulas:", [
+        "Llevan tilde solo si terminan en n o s",
+        "Llevan tilde siempre",
+        "Nunca llevan tilde",
+        "Llevan tilde si son cortas"
+    ], 1));
+
+    // Obras literarias
+    out.push(q("Lenguaje", "N2", "Obras literarias", "¿Qué es una obra literaria?", [
+        "Un documento técnico sobre alguna ciencia",
+        "Una creación artística expresada mediante el uso de la palabra",
+        "Un manual de instrucciones de uso",
+        "Un escrito meramente publicitario"
+    ], 1));
+
+    // Géneros literarios (son 3)
+    out.push(q("Lenguaje", "N3", "Géneros literarios", "Los tres grandes géneros literarios clásicos son:", [
+        "Novela, cuento y fábula",
+        "Épico (o narrativo), lírico y dramático",
+        "Comedia, tragedia y drama",
+        "Noticia, crónica y reportaje"
+    ], 1));
+    out.push(q("Lenguaje", "N3", "Géneros literarios", "El género lírico se caracteriza principalmente por:", [
+        "La narración de hazañas de héroes",
+        "La representación en un escenario",
+        "La expresión de sentimientos y emociones subjetivas",
+        "La argumentación de ideas políticas"
+    ], 2));
+    out.push(q("Lenguaje", "N3", "Géneros literarios", "El género dramático está destinado a:", [
+        "Ser cantado en coros",
+        "Ser representado ante un público",
+        "Ser leído en silencio",
+        "Informar hechos reales"
+    ], 1));
+
+    // Tipos de versos
+    out.push(q("Lenguaje", "N4", "Tipos de versos", "Según su medida, los versos se clasifican en:", [
+        "Largos y cortos",
+        "De arte menor (hasta 8 sílabas) y de arte mayor (9 o más)",
+        "Rítmicos y arrítmicos",
+        "De rima consonante y asonante"
+    ], 1));
+
+    // Partes de poema
+    out.push(q("Lenguaje", "N5", "Partes de poema", "Un conjunto de versos agrupados según una medida y rima se denomina:", [
+        "Párrafo", "Oración", "Estrofa", "Prosa"
+    ], 2));
+
+    // Elementos de la comunicación
+    out.push(q("Lenguaje", "N6", "Elementos de la comunicación", "En el proceso de comunicación, el encargado de enviar el mensaje es el:", [
+        "Receptor", "Canal", "Emisor", "Código"
+    ], 2));
+    out.push(q("Lenguaje", "N6", "Elementos de la comunicación", "El medio físico por el cual viaja el mensaje desde el emisor al receptor es el:", [
+        "Código", "Canal", "Contexto", "Propósito"
+    ], 1));
+    out.push(q("Lenguaje", "N6", "Elementos de la comunicación", "El conjunto de signos y reglas que permiten formular el mensaje se llama:", [
+        "Código", "Canal", "Referente", "Emisor"
+    ], 0));
+
+    // Tipos de textos
+    out.push(q("Lenguaje", "N7", "Tipos de textos", "Un texto argumentativo tiene como propósito principal:", [
+        "Relatar una serie de acciones",
+        "Persuadir o convencer al receptor sobre una idea o tesis",
+        "Describir las características de un objeto",
+        "Explicar objetivamente un tema"
+    ], 1));
+    out.push(q("Lenguaje", "N7", "Tipos de textos", "Un texto descriptivo busca:", [
+        "Presentar razones para defender una postura",
+        "Contar una historia de personajes",
+        "Mencionar las características de personas, animales o cosas",
+        "Dar instrucciones a seguir"
+    ], 2));
+    return out;
+}
+
+function genFisicaNuevas() {
+    const out = [];
+    // Desplazamiento y distancia recorrida
+    out.push(q("Física", "N1", "Desplazamiento y distancia", "La distancia es una magnitud:", [
+        "Vectorial, depende de la dirección",
+        "Escalar, es la longitud total de la trayectoria recorrida",
+        "Que siempre es igual a cero",
+        "Que puede ser negativa"
+    ], 1));
+    out.push(q("Física", "N1", "Desplazamiento y distancia", "El desplazamiento difiere de la distancia recorrida porque:", [
+        "El desplazamiento es un vector que une el punto inicial con el final",
+        "El desplazamiento siempre es mayor que la distancia",
+        "El desplazamiento se mide en segundos",
+        "No difieren, son exactamente lo mismo en cualquier caso"
+    ], 0));
+
+    // Trayectoria, posición
+    out.push(q("Física", "N2", "Trayectoria y posición", "La trayectoria de un móvil es:", [
+        "La velocidad con la que se mueve",
+        "El vector que va del final al inicio",
+        "La línea imaginaria que describe un cuerpo en su movimiento",
+        "El tiempo que tarda en llegar"
+    ], 2));
+    out.push(q("Física", "N2", "Trayectoria y posición", "El vector posición determina:", [
+        "La velocidad instantánea del objeto",
+        "La ubicación de una partícula en el espacio con respecto a un origen de coordenadas",
+        "El tipo de trayectoria que seguirá",
+        "La aceleración de un objeto"
+    ], 1));
+
+    // Energía
+    out.push(q("Física", "N3", "Energía", "La energía asociada al movimiento de un cuerpo es:", [
+        "Energía potencial gravitatoria",
+        "Energía térmica",
+        "Energía cinética",
+        "Energía elástica"
+    ], 2));
+    out.push(q("Física", "N3", "Energía", "La energía potencial gravitatoria depende principalmente de:", [
+        "La velocidad del objeto",
+        "La altura del objeto respecto a un nivel de referencia",
+        "El tiempo del movimiento",
+        "La temperatura del entorno"
+    ], 1));
+
+    // Fuerza como vector
+    out.push(q("Física", "N4", "Fuerza como vector", "Como magnitud vectorial, toda fuerza debe tener:", [
+        "Solo un valor numérico y unidad",
+        "Módulo (magnitud), dirección, sentido y punto de aplicación",
+        "Masa y aceleración",
+        "Únicamente sentido"
+    ], 1));
+
+    // Sistemas de referencia
+    out.push(q("Física", "N5", "Sistemas de referencia", "Un sistema de referencia inercial es aquel en el que:", [
+        "Se cumple la primera ley de Newton (está en reposo o MRU)",
+        "El sistema siempre tiene aceleración constante y distinta de cero",
+        "La gravedad no existe",
+        "No se puede usar en la Tierra"
+    ], 0));
+    out.push(q("Física", "N5", "Sistemas de referencia", "Un sistema de referencia es necesario para:", [
+        "Calcular la masa de un objeto",
+        "Describir la posición y movimiento de un objeto",
+        "Eliminar la fricción",
+        "Determinar su temperatura"
+    ], 1));
+
+    // Rapidez en el cambio de posición
+    out.push(q("Física", "N6", "Rapidez en el cambio de posición", "La rapidez representa:", [
+        "El vector cambio de velocidad respecto al tiempo",
+        "El módulo o valor numérico de la velocidad (una magnitud escalar)",
+        "El desplazamiento total dividido para el tiempo",
+        "Una fuerza centrípeta"
+    ], 1));
+    return out;
+}
+
 /* =========================
    CONSTRUIR BANCO TOTAL (SIN LÍMITE)
 ========================= */
@@ -943,6 +1187,9 @@ function buildFullBank() {
     bank.push(...genSistemas());
     bank.push(...genLenguaje());
     bank.push(...genFisica());
+    bank.push(...genMatematicasNuevas());
+    bank.push(...genLenguajeNuevas());
+    bank.push(...genFisicaNuevas());
 
     // Quitar duplicados exactos
     const seen = new Set();

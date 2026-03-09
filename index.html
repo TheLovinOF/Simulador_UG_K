@@ -10,28 +10,44 @@
 
     <style>
         :root {
-            --bg1: #f6fbff;
-            --bg2: #e9f6ff;
+            --bg1: #dcf2fd;
+            /* Fondo algo más cian/celeste */
+            --bg2: #A6D8F4;
+            /* Gradiente más vibrante y pronunciado */
             --card: #ffffff;
-            --text: #0b2440;
-            --muted: #4a6a86;
-            --line: #cfe7f6;
-            --accent: #2aa8ff;
-            --accent2: #7fd3ff;
+            --text: #020202;
+            --muted: #0B2956;
+            /* Navy más fuerte */
+            --line: rgba(11, 97, 164, 0.4);
+            /* Líneas azules más visibles */
+            --accent: #074C86;
+            /* Un azul más profundo/saturado */
+            --accent2: #0DA7D0;
+            /* Un cyan mucho más brillante */
             --good: #11a36a;
             --bad: #d94141;
-            --shadow: 0 10px 30px rgba(0, 0, 0, .06);
+            --shadow: 0 15px 45px rgba(5, 40, 80, 0.35), 0 5px 15px rgba(4, 30, 60, 0.2);
+            /* Sombra profunda y marcada para separar las ventanas del fondo */
         }
 
         * {
             box-sizing: border-box;
         }
 
+        html {
+            zoom: 1.1;
+            /* Escala del 10% superior */
+        }
+
         body {
             margin: 0;
-            font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial;
+            font-family: "Berlin Sans FB", system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial;
             color: var(--text);
-            background: radial-gradient(1200px 600px at 20% 0%, var(--bg2), var(--bg1));
+            /* Degradado suave de celeste hacia blanco para cubrir todo el fondo sin partirse */
+            background: linear-gradient(180deg, var(--bg2) 0%, #ffffff 80%);
+            min-height: 100vh;
+            text-shadow: 0 1px 2px rgba(11, 36, 64, 0.05);
+            /* Sombra muy sutil */
         }
 
         .wrap {
@@ -66,17 +82,11 @@
         }
 
         .brand .ug-logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 54px;
-            height: 54px;
-            border-radius: 10px;
-            border: 1px solid var(--line);
-            background: #fff;
-            font-size: 24px;
-            font-weight: 900;
-            color: var(--text);
+            width: 72px;
+            /* Logo más grande */
+            height: 72px;
+            object-fit: contain;
+            /* Eliminados border y background para dejarlo limpio */
         }
 
         .title {
@@ -88,6 +98,7 @@
             color: var(--muted);
             font-size: 13px;
             margin-top: 2px;
+            opacity: 0.85;
         }
 
         .meta {
@@ -97,44 +108,102 @@
             align-items: center;
         }
 
-        .pill {
+        .timer-container {
+            position: relative;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 65px;
+            /* Evita que el botón colapse de tamaño */
             padding: 8px 10px;
-            border: 1px solid var(--line);
+            border: none;
+            /* Sin bordes como el botón iniciar */
             border-radius: 999px;
-            color: var(--muted);
-            background: #f7fcff;
+            color: #ffffff;
+            background: rgba(11, 97, 164, 0.15);
+            /* Fondo base de apagado similar a la progressbar */
             font-size: 13px;
+            font-weight: 600;
+        }
+
+        .timer-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            /* Lleno por defecto */
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            /* Colores idénticos a barra de progreso */
+            transition: width 1s linear;
+            z-index: 0;
         }
 
         .timer {
-            color: var(--accent);
+            position: relative;
+            z-index: 1;
+            /* Para que el texto quede siempre sobre el relleno de barra */
             font-weight: 900;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            /* Más legibilidad al vaciarse el fondo */
         }
 
         .btn {
             border: 1px solid var(--line);
-            background: linear-gradient(180deg, #ffffff, #f3fbff);
+            background: linear-gradient(180deg, #ffffff, #f0f7fb);
             padding: 10px 12px;
             border-radius: 14px;
             cursor: pointer;
             font-weight: 800;
             color: var(--text);
-            box-shadow: 0 6px 16px rgba(42, 168, 255, .08);
+            box-shadow: 0 6px 16px rgba(11, 97, 164, 0.08);
+            transition: transform 0.1s ease, filter 0.2s ease, box-shadow 0.2s ease;
         }
 
         .btn:hover {
-            border-color: #b8def4;
+            border-color: var(--accent2);
+            box-shadow: 0 6px 16px rgba(11, 97, 164, 0.15);
         }
 
         .btn.primary {
-            border-color: #bfe7ff;
-            background: linear-gradient(180deg, #e8f7ff, #dff3ff);
+            border: none;
+            background: linear-gradient(180deg, var(--accent2), var(--accent));
+            color: #ffffff;
+            box-shadow: 0 6px 16px rgba(11, 97, 164, 0.25);
+        }
+
+        .btn.primary:hover {
+            filter: brightness(1.1);
+        }
+
+        .btn.success {
+            border: none;
+            background: linear-gradient(180deg, #1bd68e, #11a36a);
+            color: #ffffff;
+            box-shadow: 0 6px 16px rgba(17, 163, 106, 0.25);
+        }
+
+        .btn.success:hover {
+            filter: brightness(1.1);
         }
 
         .btn.danger {
             border-color: #ffd1d1;
             background: linear-gradient(180deg, #fff5f5, #ffecec);
             color: #8a1d1d;
+        }
+
+        .btn.expert {
+            border: none;
+            background: linear-gradient(180deg, #d32f2f, #b71c1c);
+            /* Rojo oscuro estilo material design */
+            color: #ffffff;
+            box-shadow: 0 6px 16px rgba(183, 28, 28, 0.25);
+        }
+
+        .btn.expert:hover {
+            filter: brightness(1.1);
         }
 
         .btn:disabled {
@@ -152,8 +221,10 @@
         }
 
         .progressbar {
-            height: 10px;
-            background: #eef7ff;
+            height: 12px;
+            /* Ligeramente más alta */
+            background: rgba(11, 97, 164, 0.15);
+            /* Fondo base de la barra un poco más notorio */
             border: 1px solid var(--line);
             border-radius: 999px;
             overflow: hidden;
@@ -188,12 +259,14 @@
 
         .tag {
             font-size: 12px;
-            color: var(--muted);
-            border: 1px solid var(--line);
+            color: #ffffff;
+            border: none;
             padding: 6px 10px;
             border-radius: 999px;
-            background: #f7fcff;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            /* Tag bastante vibrante */
             white-space: nowrap;
+            font-weight: bold;
         }
 
         .qtext {
@@ -216,14 +289,18 @@
             padding: 12px 14px;
             border: 1px solid var(--line);
             border-radius: 16px;
-            background: #f7fcff;
+            background: #ffffff;
             cursor: pointer;
-            transition: transform .06s ease, border-color .2s ease, background .2s ease;
+            transition: transform .06s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
             user-select: none;
         }
 
         .opt:hover {
-            border-color: #b8def4;
+            border-color: var(--accent2);
+            background: rgba(13, 167, 208, 0.08);
+            /* Fondo azul un poco más pronunciado al hover */
+            box-shadow: 0 4px 12px rgba(7, 76, 134, 0.12);
+            /* Sombra más pronunciada azul oscuro */
         }
 
         .opt:active {
@@ -245,7 +322,7 @@
             padding: 12px 14px;
             border: 1px dashed var(--line);
             border-radius: 16px;
-            background: #fbfeff;
+            background: rgba(29, 190, 234, 0.03);
             color: var(--muted);
             font-size: 13px;
             white-space: pre-wrap;
@@ -266,7 +343,8 @@
             padding: 14px;
             border: 1px solid var(--line);
             border-radius: 16px;
-            background: #fbfeff;
+            background: #ffffff;
+            box-shadow: 0 4px 12px rgba(11, 97, 164, 0.04);
         }
 
         .big {
@@ -302,13 +380,16 @@
         .calc {
             margin-top: 10px;
             padding: 12px 14px;
-            border: 1px solid var(--line);
+            border: 1px solid var(--accent);
+            /* Borde acentuado */
             border-radius: 16px;
-            background: #f7fcff;
+            background: rgba(13, 167, 208, 0.06);
+            /* Ligerísimo color cyan fuerte */
             color: var(--muted);
             line-height: 1.35;
             font-size: 13px;
             white-space: pre-wrap;
+            font-weight: 500;
         }
 
         .watermark {
@@ -322,6 +403,184 @@
             pointer-events: none;
             user-select: none;
         }
+
+        /* Responsive Design */
+        .corrections-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 15px;
+            max-height: 480px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+
+        .correction-item {
+            padding: 14px;
+            background: #fdfdfd;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+            text-align: left;
+        }
+
+        .correction-q {
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 15px;
+            color: var(--muted);
+        }
+
+        .correction-wrong {
+            color: var(--bad);
+            margin-bottom: 4px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .correction-right {
+            color: var(--good);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .corrections-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 15px;
+            max-height: 480px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+
+        .correction-item {
+            padding: 14px;
+            background: #fdfdfd;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+            text-align: left;
+        }
+
+        .correction-q {
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 15px;
+            color: var(--muted);
+        }
+
+        .correction-wrong {
+            color: var(--bad);
+            margin-bottom: 4px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .correction-right {
+            color: var(--good);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .proc-btn {
+            margin-top: 10px;
+            font-size: 13px;
+            color: var(--accent);
+            background: rgba(11, 97, 164, 0.08);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .proc-btn:hover {
+            background: rgba(11, 97, 164, 0.15);
+        }
+
+        .proc-box {
+            margin-top: 8px;
+            padding: 10px;
+            background: #f4f6f8;
+            border-left: 3px solid var(--accent);
+            border-radius: 0 6px 6px 0;
+            font-size: 13.5px;
+            color: #333;
+            display: none;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            html {
+                zoom: 1;
+                /* Resetear el zoom en móviles para que quepa bien */
+            }
+
+            .wrap {
+                padding: 10px;
+                padding-bottom: 70px;
+            }
+
+            .top {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 12px;
+                border-radius: 12px;
+                gap: 16px;
+            }
+
+            .brand {
+                min-width: auto;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .brand .ug-logo {
+                width: 86px;
+                /* Aumentado otro 20% (de 72 a 86) */
+                height: 86px;
+            }
+
+            .meta {
+                justify-content: center;
+            }
+
+            .opts {
+                grid-template-columns: 1fr;
+            }
+
+            .qtext {
+                font-size: 16px;
+            }
+
+            .stat {
+                padding: 12px;
+            }
+
+            .big {
+                font-size: 24px;
+            }
+
+            .input {
+                width: 100%;
+            }
+
+            .btn {
+                flex: 1;
+                text-align: center;
+                padding: 10px 8px;
+            }
+
+            .btn#startBtn,
+            .btn#finishBtn,
+            .btn#resetBtn {
+                flex: 1;
+                font-size: 13px;
+                padding: 10px 6px;
+            }
+        }
     </style>
 </head>
 
@@ -329,18 +588,23 @@
     <div class="wrap">
         <div class="top">
             <div class="brand">
-                <div class="ug-logo">UG</div>
+                <img src="LogoUG.png" alt="UG Logo" class="ug-logo" />
                 <div>
                     <div class="title">Simulacro • Bloque 1 • 40 preguntas • 60 minutos</div>
-                    <div class="sub">40 aleatorias de TODO el banco • una por una • bloquea respuesta • muestra
-                        subtema/código</div>
+                    <div class="sub">40 aleatorias de TODO el banco • una por una • bloquea respuesta • muestra subtema
+                    </div>
                 </div>
             </div>
 
             <div class="meta">
-                <div class="pill">Tiempo: <span class="timer" id="timer">60:00</span></div>
+                <div class="timer-container" id="timerContainer">
+                    <div class="timer-fill" id="timerFill"></div>
+                    <span style="position:relative; z-index:1;">Tiempo:</span>&nbsp;<span class="timer"
+                        id="timer">60:00</span>
+                </div>
                 <div class="pill">Progreso: <span id="prog">0</span>/40</div>
                 <button class="btn primary" id="startBtn">Iniciar</button>
+                <button class="btn expert" id="expertBtn">Modo Experto</button>
                 <button class="btn danger" id="finishBtn" disabled>Finalizar</button>
                 <button class="btn" id="resetBtn">Reiniciar</button>
             </div>
@@ -401,6 +665,12 @@
                 </div>
             </div>
 
+            <div
+                style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:14px; margin-bottom:14px;">
+                <button class="btn success" id="correctionsBtn">Ver correcciones</button>
+                <button class="btn primary" id="backBtn">Volver al inicio</button>
+            </div>
+
             <div class="card" style="margin-top:14px;">
                 <div class="title" style="font-size:16px;">Cálculo de nota final</div>
                 <div class="sub">Ponderación 50% colegio y 50% examen (coincide con tu ejemplo).</div>
@@ -413,20 +683,42 @@
 
                 <div class="calc" id="calcBox"></div>
 
+                <!-- Cuadro de la nota final oculta por defecto hasta que se calcula -->
+                <div class="stats hide" id="finalScoreContainer" style="margin-top:14px; grid-template-columns: 1fr;">
+                    <div class="stat"
+                        style="background: linear-gradient(180deg, var(--accent2), var(--accent)); color: white; border: none; box-shadow: 0 6px 16px rgba(11, 97, 164, 0.25);">
+                        <div style="opacity: 0.9;">Tu Nota Final Definitiva</div>
+                        <div class="big" id="finalScoreBig"
+                            style="color: white; font-size: 32px; font-weight: 1000; margin-top: 4px;">0</div>
+                    </div>
+                </div>
+
                 <div class="notice" style="margin-top:12px;">
                     Fórmula usada:
-                    NotaFinal = (NotaColegio/10)×500 + (PuntajeSimulacro/1000)×500
-                    (Ej: 9.35 → 467.50 y 800 → 400.00, total 867.50)
+                    NotaFinal = NotaColegio × 50 + PuntajeSimulacro × 0.50
+                    (Ej: 9.34 → 467.00 y 100 → 50.00, total 517.00)
                 </div>
             </div>
 
-            <div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:12px;">
-                <button class="btn" id="backBtn">Volver</button>
-            </div>
         </div>
     </div>
 
-    <div class="watermark">Creado por: Kelvin Z</div>
+    <div class="card hide" id="correctionsCard">
+        <div class="title" style="color:var(--bad);">Historial de Errores</div>
+        <div class="sub">Preguntas en las que te equivocaste y su respuesta correcta.</div>
+
+        <div class="corrections-list" id="correctionsList"></div>
+
+        <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:16px;">
+            <button class="btn" id="closeCorrectionsBtn">Regresar a puntaje</button>
+        </div>
+    </div>
+    </div>
+
+    <div class="watermark">
+        <strong>By Kelvin ZR</strong>
+        <span style="position: absolute; right: 15px; bottom: 0;">v1.1</span>
+    </div>
 
     <script>
         /* =========================
@@ -1361,6 +1653,250 @@
             return out;
         }
 
+        /* -------- Nuevos Temas -------- */
+        function genMatematicasNuevas() {
+            const out = [];
+            // Propiedades de los números reales
+            out.push(q("Matemáticas", "N1", "Propiedades de los números reales", "La propiedad que establece que a + b = b + a se conoce como:", [
+                "Propiedad asociativa",
+                "Propiedad conmutativa",
+                "Propiedad distributiva",
+                "Elemento neutro"
+            ], 1));
+            out.push(q("Matemáticas", "N1", "Propiedades de los números reales", "La propiedad que establece que a(b + c) = ab + ac se llama:", [
+                "Propiedad conmutativa",
+                "Propiedad distributiva",
+                "Propiedad asociativa",
+                "Inverso multiplicativo"
+            ], 1));
+            out.push(q("Matemáticas", "N1", "Propiedades de los números reales", "El elemento neutro de la suma en los números reales es:", [
+                "1", "0", "-1", "Ninguno"
+            ], 1));
+
+            // Función de variable real
+            out.push(q("Matemáticas", "N2", "Función de variable real", "El conjunto de todos los valores posibles de entrada (x) para los cuales la función está definida se llama:", [
+                "Rango", "Codominio", "Dominio", "Imagen"
+            ], 2));
+            out.push(q("Matemáticas", "N2", "Función de variable real", "El conjunto de todos los valores de salida (y) de una función se llama:", [
+                "Dominio", "Rango o Imagen", "Abscisa", "Ordenada al origen"
+            ], 1));
+
+            // Matrices
+            out.push(q("Matemáticas", "N3", "Matrices", "¿Qué es una matriz en matemáticas?", [
+                "Un arreglo bidimensional de números ordenados en filas y columnas",
+                "Un número real positivo",
+                "Una función polinómica de tercer grado",
+                "Un tipo de vector unidimensional"
+            ], 0));
+            out.push(q("Matemáticas", "N3", "Matrices", "Para poder sumar dos matrices, estas deben cumplir que:", [
+                "Tengan el mismo número de filas y columnas (mismo orden)",
+                "El número de columnas de la primera sea igual al de filas de la segunda",
+                "Tengan determinante distinto de cero",
+                "Ambas sean matrices cuadradas"
+            ], 0));
+            out.push(q("Matemáticas", "N3", "Matrices", "El determinante solo se puede calcular en matrices:", [
+                "Rectangulares",
+                "Cuadradas",
+                "Fila",
+                "Nulas"
+            ], 1));
+
+            // Inecuaciones
+            out.push(q("Matemáticas", "N4", "Inecuaciones", "Al multiplicar o dividir ambos lados de una inecuación por un número negativo:", [
+                "La inecuación no cambia",
+                "Se invierte el sentido de la desigualdad",
+                "La inecuación se convierte en igualdad",
+                "Se elimina el número negativo"
+            ], 1));
+            out.push(q("Matemáticas", "N4", "Inecuaciones", "La solución de una inecuación lineal con una incógnita se representa generalmente como:", [
+                "Un solo punto",
+                "Un intervalo en la recta real",
+                "Una matriz",
+                "Un plano"
+            ], 1));
+
+            // Productos notables
+            out.push(q("Matemáticas", "N5", "Productos notables", "El desarrollo del binomio al cuadrado (a + b)² es:", [
+                "a² + b²",
+                "a² + ab + b²",
+                "a² + 2ab + b²",
+                "a² - 2ab + b²"
+            ], 2));
+            out.push(q("Matemáticas", "N5", "Productos notables", "La expresión (a - b)(a + b) es el desarrollo de un producto notable conocido como:", [
+                "Trinomio cuadrado perfecto",
+                "Diferencia de cuadrados (a² - b²)",
+                "Cubo de un binomio",
+                "Suma de cubos"
+            ], 1));
+            return out;
+        }
+
+        function genLenguajeNuevas() {
+            const out = [];
+            // Ortografía
+            out.push(q("Lenguaje", "N1", "Ortografía", "Las palabras agudas llevan tilde cuando:", [
+                "Terminan en vocal, n o s",
+                "Terminan en cualquier consonante menos n o s",
+                "Siempre llevan tilde",
+                "Terminan en vocal únicamente"
+            ], 0));
+            out.push(q("Lenguaje", "N1", "Ortografía", "Las palabras graves (o llanas) llevan tilde cuando:", [
+                "Terminan en vocal, n o s",
+                "Terminan en consonante que no sea n ni s",
+                "Son excepcionales y siempre la llevan",
+                "Tienen más de tres sílabas"
+            ], 1));
+            out.push(q("Lenguaje", "N1", "Ortografía", "Las palabras esdrújulas:", [
+                "Llevan tilde solo si terminan en n o s",
+                "Llevan tilde siempre",
+                "Nunca llevan tilde",
+                "Llevan tilde si son cortas"
+            ], 1));
+
+            // Obras literarias
+            out.push(q("Lenguaje", "N2", "Obras literarias", "¿Qué es una obra literaria?", [
+                "Un documento técnico sobre alguna ciencia",
+                "Una creación artística expresada mediante el uso de la palabra",
+                "Un manual de instrucciones de uso",
+                "Un escrito meramente publicitario"
+            ], 1));
+
+            // Géneros literarios (son 3)
+            out.push(q("Lenguaje", "N3", "Géneros literarios", "Los tres grandes géneros literarios clásicos son:", [
+                "Novela, cuento y fábula",
+                "Épico (o narrativo), lírico y dramático",
+                "Comedia, tragedia y drama",
+                "Noticia, crónica y reportaje"
+            ], 1));
+            out.push(q("Lenguaje", "N3", "Géneros literarios", "El género lírico se caracteriza principalmente por:", [
+                "La narración de hazañas de héroes",
+                "La representación en un escenario",
+                "La expresión de sentimientos y emociones subjetivas",
+                "La argumentación de ideas políticas"
+            ], 2));
+            out.push(q("Lenguaje", "N3", "Géneros literarios", "El género dramático está destinado a:", [
+                "Ser cantado en coros",
+                "Ser representado ante un público",
+                "Ser leído en silencio",
+                "Informar hechos reales"
+            ], 1));
+
+            // Tipos de versos
+            out.push(q("Lenguaje", "N4", "Tipos de versos", "Según su medida, los versos se clasifican en:", [
+                "Largos y cortos",
+                "De arte menor (hasta 8 sílabas) y de arte mayor (9 o más)",
+                "Rítmicos y arrítmicos",
+                "De rima consonante y asonante"
+            ], 1));
+
+            // Partes de poema
+            out.push(q("Lenguaje", "N5", "Partes de poema", "Un conjunto de versos agrupados según una medida y rima se denomina:", [
+                "Párrafo", "Oración", "Estrofa", "Prosa"
+            ], 2));
+
+            // Elementos de la comunicación
+            out.push(q("Lenguaje", "N6", "Elementos de la comunicación", "En el proceso de comunicación, el encargado de enviar el mensaje es el:", [
+                "Receptor", "Canal", "Emisor", "Código"
+            ], 2));
+            out.push(q("Lenguaje", "N6", "Elementos de la comunicación", "El medio físico por el cual viaja el mensaje desde el emisor al receptor es el:", [
+                "Código", "Canal", "Contexto", "Propósito"
+            ], 1));
+            out.push(q("Lenguaje", "N6", "Elementos de la comunicación", "El conjunto de signos y reglas que permiten formular el mensaje se llama:", [
+                "Código", "Canal", "Referente", "Emisor"
+            ], 0));
+
+            // Tipos de textos
+            out.push(q("Lenguaje", "N7", "Tipos de textos", "Un texto argumentativo tiene como propósito principal:", [
+                "Relatar una serie de acciones",
+                "Persuadir o convencer al receptor sobre una idea o tesis",
+                "Describir las características de un objeto",
+                "Explicar objetivamente un tema"
+            ], 1));
+            out.push(q("Lenguaje", "N7", "Tipos de textos", "Un texto descriptivo busca:", [
+                "Presentar razones para defender una postura",
+                "Contar una historia de personajes",
+                "Mencionar las características de personas, animales o cosas",
+                "Dar instrucciones a seguir"
+            ], 2));
+            return out;
+        }
+
+        function genFisicaNuevas() {
+            const out = [];
+            // Desplazamiento y distancia recorrida
+            out.push(q("Física", "N1", "Desplazamiento y distancia", "La distancia es una magnitud:", [
+                "Vectorial, depende de la dirección",
+                "Escalar, es la longitud total de la trayectoria recorrida",
+                "Que siempre es igual a cero",
+                "Que puede ser negativa"
+            ], 1));
+            out.push(q("Física", "N1", "Desplazamiento y distancia", "El desplazamiento difiere de la distancia recorrida porque:", [
+                "El desplazamiento es un vector que une el punto inicial con el final",
+                "El desplazamiento siempre es mayor que la distancia",
+                "El desplazamiento se mide en segundos",
+                "No difieren, son exactamente lo mismo en cualquier caso"
+            ], 0));
+
+            // Trayectoria, posición
+            out.push(q("Física", "N2", "Trayectoria y posición", "La trayectoria de un móvil es:", [
+                "La velocidad con la que se mueve",
+                "El vector que va del final al inicio",
+                "La línea imaginaria que describe un cuerpo en su movimiento",
+                "El tiempo que tarda en llegar"
+            ], 2));
+            out.push(q("Física", "N2", "Trayectoria y posición", "El vector posición determina:", [
+                "La velocidad instantánea del objeto",
+                "La ubicación de una partícula en el espacio con respecto a un origen de coordenadas",
+                "El tipo de trayectoria que seguirá",
+                "La aceleración de un objeto"
+            ], 1));
+
+            // Energía
+            out.push(q("Física", "N3", "Energía", "La energía asociada al movimiento de un cuerpo es:", [
+                "Energía potencial gravitatoria",
+                "Energía térmica",
+                "Energía cinética",
+                "Energía elástica"
+            ], 2));
+            out.push(q("Física", "N3", "Energía", "La energía potencial gravitatoria depende principalmente de:", [
+                "La velocidad del objeto",
+                "La altura del objeto respecto a un nivel de referencia",
+                "El tiempo del movimiento",
+                "La temperatura del entorno"
+            ], 1));
+
+            // Fuerza como vector
+            out.push(q("Física", "N4", "Fuerza como vector", "Como magnitud vectorial, toda fuerza debe tener:", [
+                "Solo un valor numérico y unidad",
+                "Módulo (magnitud), dirección, sentido y punto de aplicación",
+                "Masa y aceleración",
+                "Únicamente sentido"
+            ], 1));
+
+            // Sistemas de referencia
+            out.push(q("Física", "N5", "Sistemas de referencia", "Un sistema de referencia inercial es aquel en el que:", [
+                "Se cumple la primera ley de Newton (está en reposo o MRU)",
+                "El sistema siempre tiene aceleración constante y distinta de cero",
+                "La gravedad no existe",
+                "No se puede usar en la Tierra"
+            ], 0));
+            out.push(q("Física", "N5", "Sistemas de referencia", "Un sistema de referencia es necesario para:", [
+                "Calcular la masa de un objeto",
+                "Describir la posición y movimiento de un objeto",
+                "Eliminar la fricción",
+                "Determinar su temperatura"
+            ], 1));
+
+            // Rapidez en el cambio de posición
+            out.push(q("Física", "N6", "Rapidez en el cambio de posición", "La rapidez representa:", [
+                "El vector cambio de velocidad respecto al tiempo",
+                "El módulo o valor numérico de la velocidad (una magnitud escalar)",
+                "El desplazamiento total dividido para el tiempo",
+                "Una fuerza centrípeta"
+            ], 1));
+            return out;
+        }
+
         /* =========================
            CONSTRUIR BANCO TOTAL (SIN LÍMITE)
         ========================= */
@@ -1374,6 +1910,9 @@
             bank.push(...genSistemas());
             bank.push(...genLenguaje());
             bank.push(...genFisica());
+            bank.push(...genMatematicasNuevas());
+            bank.push(...genLenguajeNuevas());
+            bank.push(...genFisicaNuevas());
 
             // Quitar duplicados exactos
             const seen = new Set();
@@ -1403,6 +1942,7 @@
         const progEl = document.getElementById("prog");
         const barEl = document.getElementById("bar");
         const startBtn = document.getElementById("startBtn");
+        const expertBtn = document.getElementById("expertBtn");
         const finishBtn = document.getElementById("finishBtn");
         const resetBtn = document.getElementById("resetBtn");
 
@@ -1423,15 +1963,21 @@
         const score1000El = document.getElementById("score1000");
         const usedEl = document.getElementById("used");
         const backBtn = document.getElementById("backBtn");
+        const correctionsBtn = document.getElementById("correctionsBtn");
+        const correctionsCard = document.getElementById("correctionsCard");
+        const correctionsList = document.getElementById("correctionsList");
+        const closeCorrectionsBtn = document.getElementById("closeCorrectionsBtn");
 
         const schoolInp = document.getElementById("school");
         const calcBtn = document.getElementById("calcBtn");
         const calcBox = document.getElementById("calcBox");
+        const finalScoreContainer = document.getElementById("finalScoreContainer");
+        const finalScoreBig = document.getElementById("finalScoreBig");
 
         /* =========================
            Estado
         ========================= */
-        let started = false, ended = false;
+        let started = false, ended = false, isExpert = false;
         let idx = 0;
         let timeLeft = TOTAL_TIME_SEC;
         let tick = null;
@@ -1443,7 +1989,24 @@
         }
         function setTimer() {
             timerEl.textContent = formatTime(timeLeft);
-            timerEl.style.color = (timeLeft <= 300) ? "var(--bad)" : "var(--accent)";
+
+            // Calculamos el porcentaje restante
+            const totalSecs = isExpert ? 2400 : TOTAL_TIME_SEC;
+            const pct = (timeLeft / totalSecs) * 100;
+
+            // Referenciamos elemento y ajustamos ancho
+            const fillEl = document.getElementById("timerFill");
+            if (fillEl) fillEl.style.width = `${pct}%`;
+
+            // Si quedan menos de 5 min (300 segs), pintar de rojo
+            if (timeLeft <= 300) {
+                if (fillEl) fillEl.style.background = "var(--bad)";
+                timerEl.style.color = "#ffffff";
+                timerEl.style.textShadow = "0 1px 2px rgba(0,0,0,0.5)";
+            } else {
+                if (fillEl) fillEl.style.background = "linear-gradient(90deg, var(--accent), var(--accent2))";
+                timerEl.style.color = "#ffffff";
+            }
         }
         function updateProgress() {
             progEl.textContent = String(idx);
@@ -1459,12 +2022,12 @@
             qNum.textContent = `#${idx + 1}`;
             qText.textContent = item.text;
 
-            // Mostrar: "Tema" + " (Código: X • Subtema: Y)"
+            // Mostrar: "Tema" + " (Subtema: Y)"
             qTopic.textContent = item.topic;
-            qSubMeta.textContent = `  (Código: ${item.code} • Subtema: ${item.subtema})`;
+            qSubMeta.textContent = `  (Subtema: ${item.subtema})`;
 
-            // Tag arriba a la derecha: "Tema • Código"
-            qTag.textContent = `${item.topic} • ${item.code}`;
+            // Tag arriba a la derecha: "Tema"
+            qTag.textContent = `${item.topic}`;
 
             optsEl.innerHTML = "";
             item.options.forEach((opt, j) => {
@@ -1503,9 +2066,15 @@
             if (started || ended) return;
             started = true;
             startBtn.disabled = true;
+            expertBtn.disabled = true;
             finishBtn.disabled = false;
 
-            hintEl.textContent = "Responde. No puedes retroceder y no puedes cambiar una respuesta.";
+            if (isExpert) {
+                hintEl.textContent = "Responde. No puedes retroceder y no puedes cambiar una respuesta, a parte ahora tienes solo 40 minutos y las preguntas seran mas dificiles";
+            } else {
+                hintEl.textContent = "Responde. No puedes retroceder y no puedes cambiar una respuesta.";
+            }
+
             qArea.classList.remove("hide");
 
             idx = 0;
@@ -1526,7 +2095,8 @@
             if (tick) clearInterval(tick);
             finishBtn.disabled = true;
 
-            const used = TOTAL_TIME_SEC - timeLeft;
+            const totalSecs = isExpert ? 2400 : TOTAL_TIME_SEC;
+            const used = totalSecs - timeLeft;
             const { correct, wrong, score1000 } = computeScore();
 
             correctEl.textContent = correct;
@@ -1537,22 +2107,136 @@
             calcBox.textContent = "";
             schoolInp.value = "";
             calcBtn.disabled = false;
+            finalScoreContainer.classList.add("hide");
 
             quizCard.classList.add("hide");
             resultCard.classList.remove("hide");
             resultCard.dataset.score1000 = String(score1000);
+
+            // Construir lista de correcciones
+            correctionsList.innerHTML = "";
+            let mistakesFound = false;
+            for (let i = 0; i < EXAM_SIZE; i++) {
+                const item = EXAM[i];
+                if (answers[i] !== item.correct) {
+                    mistakesFound = true;
+                    const div = document.createElement("div");
+                    div.className = "correction-item";
+
+                    const answeredText = answers[i] !== null ? item.options[answers[i]] : "No respondida";
+
+                    // Generar un procedimiento simulado/real según los datos (si no existe lo creamos genérico para el simulacro, excepto Lenguaje)
+                    let explanationHtml = "";
+                    if (item.topic !== "Lenguaje") {
+                        let procText = item.explanation || "";
+
+                        // Extracción dinámica de números para matemáticas/física si no hay procText
+                        if (!procText) {
+                            const txt = item.text;
+                            const sub = item.subtema;
+                            const corr = item.options[item.correct];
+
+                            if (sub.includes("Derivadas") && txt.includes("f(x) =")) {
+                                let m = txt.match(/f\(x\)\s*=\s*(-?\d+)x\^(\d+)/);
+                                if (m) {
+                                    procText = `Regla de la potencia: d/dx [a x^n] = a * n x^(n-1).\n1. a = ${m[1]} y n = ${m[2]}.\n2. Multiplicamos: ${m[1]} * ${m[2]} = ${m[1] * m[2]}.\n3. Exponente: ${m[2]} - 1 = ${m[2] - 1}.\nResultado: ${corr}`;
+                                } else if (txt.match(/f\(x\)\s*=\s*(-?\d+)\b/)) {
+                                    procText = `La derivada de una constante aislada siempre es 0.\nResultado: ${corr}`;
+                                }
+                            } else if (txt.includes("a+b =")) {
+                                let m = txt.match(/a=\((-?\d+),(-?\d+)\) y b=\((-?\d+),(-?\d+)\)/);
+                                if (m) {
+                                    procText = `1. Sumamos componentes X: ${m[1]} + (${m[3]}) = ${Number(m[1]) + Number(m[3])}.\n2. Sumamos componentes Y: ${m[2]} + (${m[4]}) = ${Number(m[2]) + Number(m[4])}.\nResultado: ${corr}`;
+                                }
+                            } else if (sub.includes("Componentes") && txt.includes("sus componentes son")) {
+                                let m = txt.match(/a=\((-?\d+),(-?\d+)\)/);
+                                if (m) {
+                                    procText = `Las componentes espaciales se extraen directamente de la coordenada.\nx = ${m[1]}, y = ${m[2]}.\nResultado: ${corr}`;
+                                }
+                            } else if (sub.includes("Distancia") && txt.includes("Distancia entre")) {
+                                let m = txt.match(/A\((-?\d+),(-?\d+)\) y B\((-?\d+),(-?\d+)\)/);
+                                if (m) {
+                                    let x1 = m[1], y1 = m[2], x2 = m[3], y2 = m[4];
+                                    procText = `Fórmula de distancia: d = √[(x2 - x1)² + (y2 - y1)²]\n1. Diferencias: x2-x1 = ${x2 - x1}, y2-y1 = ${y2 - y1}\n2. Cuadrados: ${Math.pow(x2 - x1, 2)} + ${Math.pow(y2 - y1, 2)} = ${Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)}\n3. Raíz: √${Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)} = ${corr}`;
+                                }
+                            } else if (sub.includes("Punto medio") && txt.includes("Punto medio entre")) {
+                                let m = txt.match(/P\((-?\d+),(-?\d+)\) y Q\((-?\d+),(-?\d+)\)/);
+                                if (m) {
+                                    procText = `Fórmula de punto medio: M = ((x1+x2)/2, (y1+y2)/2)\n1. X: (${m[1]} + ${m[3]})/2 = ${(Number(m[1]) + Number(m[3])) / 2}\n2. Y: (${m[2]} + ${m[4]})/2 = ${(Number(m[2]) + Number(m[4])) / 2}\nResultado: ${corr}`;
+                                }
+                            } else if (sub.includes("MRU") && txt.includes("distancia")) {
+                                let m = txt.match(/v=([\d.]+)m\/s, t=([\d.]+)s/);
+                                if (m) {
+                                    procText = `Fórmula MRU: d = v * t\n1. d = ${m[1]} * ${m[2]}\n2. d = ${Number(m[1]) * Number(m[2])} m\nResultado: ${corr}`;
+                                }
+                            } else if (sub.includes("MRUV") && txt.includes("aceleración")) {
+                                let m = txt.match(/v0=([\d.]+)m\/s, vf=([\d.]+)m\/s en ([\d.]+)s/);
+                                if (m) {
+                                    procText = `Fórmula aceleración: a = (vf - v0) / t\n1. a = (${m[2]} - ${m[1]}) / ${m[3]}\n2. a = ${Number(m[2]) - Number(m[1])} / ${m[3]} = ${(Number(m[2]) - Number(m[1])) / Number(m[3])} m/s²\nResultado: ${corr}`;
+                                }
+                            } else if (sub.includes("Newton") || txt.includes("fuerza")) {
+                                let m = txt.match(/m=([\d.]+)kg .* a=([\d.]+)m\/s/);
+                                if (m) {
+                                    procText = `2da Ley de Newton: F = m * a\n1. F = ${m[1]} * ${m[2]}\n2. F = ${Number(m[1]) * Number(m[2])} N\nResultado: ${corr}`;
+                                }
+                            }
+
+                            if (!procText) {
+                                let nums = txt.match(/-?\d+(\.\d+)?/g) || [];
+                                if (nums.length > 0) {
+                                    procText = `Extraemos de la pregunta los datos numéricos principales: ${nums.join(', ')}.\nAplicando las fórmulas de ${sub}, al aislar las variables y operar la matemática obtenemos la equivalencia a: ${corr}.`;
+                                } else {
+                                    procText = `Pregunta teórica o de concepto general sobre el subtema ${sub}.\nLa premisa correcta fundamentada equivale y se apega fielmente a: ${corr}`;
+                                }
+                            }
+                        }
+
+                        explanationHtml = `
+                            <button class="proc-btn" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">
+                              👁 Ver Procedimiento analítico
+                            </button>
+                            <div class="proc-box">${procText.replace(/\n/g, '<br>')}</div>
+                        `;
+                    }
+
+                    div.innerHTML = `
+                        <div class="correction-q">#${i + 1}. ${item.text}</div>
+                        <div class="correction-wrong">Tú marcaste: ${answeredText}</div>
+                        <div class="correction-right">Respuesta correcta: ${item.options[item.correct]}</div>
+                        ${explanationHtml}
+                    `;
+                    correctionsList.appendChild(div);
+                }
+            }
+            if (!mistakesFound) {
+                correctionsList.innerHTML = "<div class='muted'>¡Excelente! No tuviste ningún error.</div>";
+            }
         }
 
-        function newAttempt() {
+        function newAttempt(mode = 'normal') {
             if (tick) clearInterval(tick);
+            isExpert = (mode === 'expert');
 
             if (BANK.length === 0) {
                 BANK = buildFullBank();
             }
 
+            let pool = BANK;
+
+            // Si es experto filtramos preguntas, evaluamos longitud total de las opciones como indicio de dificultad
+            if (isExpert) {
+                // Selecciona las mitades que son estadísticamente más "largas" (por ende tienen que leer más / rebuscadas)
+                let copy = [...BANK].sort((a, b) => {
+                    const lenA = a.options.join("").length + a.text.length;
+                    const lenB = b.options.join("").length + b.text.length;
+                    return lenB - lenA; // Ordenar más largas primero
+                });
+                pool = copy.slice(0, Math.floor(BANK.length * 0.65)); // Tomamos el top 65% más complejas
+            }
+
             // Available questions filtering
             let availableIndices = [];
-            for (let i = 0; i < BANK.length; i++) {
+            for (let i = 0; i < pool.length; i++) {
                 if (!usedQuestionsIndices.has(i)) availableIndices.push(i);
             }
 
@@ -1560,25 +2244,26 @@
             if (availableIndices.length < EXAM_SIZE) {
                 usedQuestionsIndices.clear();
                 availableIndices = [];
-                for (let i = 0; i < BANK.length; i++) availableIndices.push(i);
+                for (let i = 0; i < pool.length; i++) availableIndices.push(i);
             }
 
             shuffle(availableIndices);
             const chosenIndices = availableIndices.slice(0, EXAM_SIZE);
             chosenIndices.forEach(val => usedQuestionsIndices.add(val));
-            EXAM = chosenIndices.map(i => BANK[i]);
+            EXAM = chosenIndices.map(i => pool[i]);
 
             answers = new Array(EXAM_SIZE).fill(null);
 
             started = false;
             ended = false;
             idx = 0;
-            timeLeft = TOTAL_TIME_SEC;
+            timeLeft = isExpert ? 2400 : TOTAL_TIME_SEC; // 40 minutos en experto (2400 segs)
 
             setTimer();
             updateProgress();
 
             startBtn.disabled = false;
+            expertBtn.disabled = false;
             finishBtn.disabled = true;
 
             hintEl.textContent = `Presiona “Iniciar”. (Preguntas usadas: ${usedQuestionsIndices.size}/${BANK.length})`;
@@ -1605,31 +2290,51 @@
                 return;
             }
 
-            const colegioParte = (school / 10) * 500;
-            const examenParte = (score1000 / 1000) * 500;
+            const colegioParte = school * 50;
+            const examenParte = score1000 * 0.50;
             const final = colegioParte + examenParte;
 
-            const line1 = `Nota colegio: ${school.toFixed(2)} → (nota/10)×500 = (${school.toFixed(2)}/10)×500 = ${colegioParte.toFixed(2)}`;
-            const line2 = `Puntaje simulacro: ${score1000} → (puntaje/1000)×500 = (${score1000}/1000)×500 = ${examenParte.toFixed(2)}`;
-            const line3 = `NOTA FINAL = ${colegioParte.toFixed(2)} + ${examenParte.toFixed(2)} = ${final.toFixed(2)}`;
+            const line1 = `Nota colegio: ${school.toFixed(2)} → multiplicada x50 = ${colegioParte.toFixed(2)}`;
+            const line2 = `Puntaje simulador: ${score1000} → multiplicado x0.50 = ${examenParte.toFixed(2)}`;
 
-            calcBox.textContent = `${line1}\n${line2}\n\n${line3}`;
+            calcBox.textContent = `${line1}\n${line2}`;
+
+            // Mostrar número enorme y panel final
+            finalScoreBig.textContent = final.toFixed(2);
+            finalScoreContainer.classList.remove("hide");
+
             calcBtn.disabled = true;
         });
 
         backBtn.addEventListener("click", () => {
             resultCard.classList.add("hide");
+            correctionsCard.classList.add("hide");
             quizCard.classList.remove("hide");
             hintEl.textContent = "El simulacro ya terminó. Usa “Reiniciar” para un nuevo intento (40 aleatorias).";
             qArea.classList.add("hide");
         });
 
+        correctionsBtn.addEventListener("click", () => {
+            resultCard.classList.add("hide");
+            correctionsCard.classList.remove("hide");
+            window.scrollTo(0, 0); // Ir hasta arriba
+        });
+
+        closeCorrectionsBtn.addEventListener("click", () => {
+            correctionsCard.classList.add("hide");
+            resultCard.classList.remove("hide");
+        });
+
         startBtn.addEventListener("click", start);
+        expertBtn.addEventListener("click", () => {
+            newAttempt('expert');
+            start();
+        });
         finishBtn.addEventListener("click", () => finish(false));
-        resetBtn.addEventListener("click", newAttempt);
+        resetBtn.addEventListener("click", () => newAttempt('normal'));
 
         // Arranque
-        newAttempt();
+        newAttempt('normal');
     </script>
 </body>
 
