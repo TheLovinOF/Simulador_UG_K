@@ -162,47 +162,133 @@
 
         .btn:hover {
             border-color: var(--accent2);
-            box-shadow: 0 6px 16px rgba(11, 97, 164, 0.15);
+            filter: brightness(1.03);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 5px rgba(11, 97, 164, 0.3);
+            transform: translateY(-1px);
         }
 
         .btn.primary {
             border: none;
             background: linear-gradient(180deg, var(--accent2), var(--accent));
             color: #ffffff;
-            box-shadow: 0 6px 16px rgba(11, 97, 164, 0.25);
+            box-shadow: 0 4px 12px rgba(11, 97, 164, 0.25);
+            transition: all 0.2s ease;
         }
 
         .btn.primary:hover {
             filter: brightness(1.1);
+            box-shadow: 0 0 15px rgba(13, 167, 208, 0.7), 0 0 5px rgba(13, 167, 208, 0.4);
+            transform: translateY(-1px);
         }
 
         .btn.success {
             border: none;
             background: linear-gradient(180deg, #1bd68e, #11a36a);
             color: #ffffff;
-            box-shadow: 0 6px 16px rgba(17, 163, 106, 0.25);
+            box-shadow: 0 4px 12px rgba(17, 163, 106, 0.25);
+            transition: all 0.2s ease;
         }
 
         .btn.success:hover {
             filter: brightness(1.1);
+            box-shadow: 0 0 15px rgba(27, 214, 142, 0.7), 0 0 5px rgba(17, 163, 106, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .btn.warning {
+            border: none;
+            background: linear-gradient(180deg, #fbc02d, #f57f17);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(245, 127, 23, 0.25);
+            transition: all 0.2s ease;
+        }
+
+        .btn.warning:hover {
+            filter: brightness(1.1);
+            box-shadow: 0 0 15px rgba(251, 192, 45, 0.7), 0 0 5px rgba(251, 192, 45, 0.4);
+            transform: translateY(-1px);
         }
 
         .btn.danger {
-            border-color: #ffd1d1;
-            background: linear-gradient(180deg, #fff5f5, #ffecec);
-            color: #8a1d1d;
+            border: none;
+            background: linear-gradient(180deg, #8e0000, #5c0000);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(92, 0, 0, 0.25);
+            transition: all 0.2s ease;
+        }
+
+        .btn.danger:hover {
+            filter: brightness(1.1);
+            box-shadow: 0 0 15px rgba(142, 0, 0, 0.7), 0 0 5px rgba(92, 0, 0, 0.4);
+            transform: translateY(-1px);
         }
 
         .btn.expert {
             border: none;
             background: linear-gradient(180deg, #d32f2f, #b71c1c);
-            /* Rojo oscuro estilo material design */
             color: #ffffff;
-            box-shadow: 0 6px 16px rgba(183, 28, 28, 0.25);
+            box-shadow: 0 4px 12px rgba(183, 28, 28, 0.25);
+            transition: all 0.2s ease;
         }
 
         .btn.expert:hover {
             filter: brightness(1.1);
+            box-shadow: 0 0 15px rgba(211, 47, 47, 0.7), 0 0 5px rgba(211, 47, 47, 0.4);
+            transform: translateY(-1px);
+        }
+
+        @keyframes shake {
+            0% {
+                transform: translateX(0);
+            }
+
+            20% {
+                transform: translateX(-1.6px) rotate(-1deg);
+            }
+
+            40% {
+                transform: translateX(1.6px) rotate(1deg);
+            }
+
+            60% {
+                transform: translateX(-1.6px) rotate(-1deg);
+            }
+
+            80% {
+                transform: translateX(1.6px) rotate(1deg);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .btn.expert-dark {
+            border: none;
+            background: linear-gradient(180deg, #8e0000, #5c0000);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(92, 0, 0, 0.25);
+            transition: all 0.2s ease;
+        }
+
+        .btn.expert-dark:hover {
+            filter: brightness(1.1);
+            box-shadow: 0 0 15px rgba(142, 0, 0, 0.7), 0 0 5px rgba(92, 0, 0, 0.4);
+            animation: shake 0.65s ease-in-out infinite;
+        }
+
+        .btn.special-blue {
+            border: none;
+            background: linear-gradient(180deg, #0b5fb3, #053b73);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(5, 59, 115, 0.25);
+            transition: all 0.2s ease;
+        }
+
+        .btn.special-blue:hover {
+            filter: brightness(1.1);
+            box-shadow: 0 0 15px rgba(11, 95, 179, 0.7), 0 0 5px rgba(11, 95, 179, 0.4);
+            transform: translateY(-1px);
         }
 
         .btn:disabled {
@@ -392,7 +478,7 @@
         }
 
         .watermark {
-            position: absolute;
+            position: fixed;
             left: 0;
             right: 0;
             bottom: 10px;
@@ -511,6 +597,91 @@
             line-height: 1.4;
         }
 
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(4, 30, 60, 0.4);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 24px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: var(--shadow);
+            transform: translateY(20px);
+            transition: transform 0.2s ease;
+            text-align: center;
+        }
+
+        @keyframes tintPulse {
+            0% {
+                box-shadow: 0 0 0 0 var(--tint-color);
+                transform: scale(0.98);
+            }
+
+            50% {
+                box-shadow: 0 0 30px 10px var(--tint-color);
+                transform: scale(1.02);
+            }
+
+            100% {
+                box-shadow: var(--shadow);
+                transform: scale(1);
+            }
+        }
+
+        .start-pulse {
+            animation: tintPulse 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        }
+
+        .modal-overlay.show .modal-card {
+            transform: translateY(0);
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 900;
+            margin-bottom: 8px;
+            color: var(--accent);
+        }
+
+        .modal-desc {
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .modal-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .modal-actions .btn {
+            width: 100%;
+            padding: 12px;
+            font-size: 15px;
+        }
+
         @media (max-width: 768px) {
             html {
                 zoom: 1;
@@ -584,6 +755,21 @@
 </head>
 
 <body>
+    <!-- Modal para selección de modo -->
+    <div class="modal-overlay" id="startModal">
+        <div class="modal-card">
+            <div class="modal-title">Seleccionar modo de inicio</div>
+            <div class="modal-desc">Elige qué tipo de simulacro deseas realizar.</div>
+            <div class="modal-actions">
+                <button class="btn primary" id="normalStartBtn">Inicio normal</button>
+                <button class="btn warning" id="afStartBtn">A-F</button>
+                <button class="btn special-blue" id="goStartBtn">G-O</button>
+                <button class="btn expert" id="pzStartBtn">P-Z</button>
+                <button class="btn expert-dark" id="expertBtn">Modo Experto (40 min)</button>
+                <button class="btn" id="cancelStartBtn" style="margin-top: 8px;">Cancelar</button>
+            </div>
+        </div>
+    </div>
     <div class="wrap">
         <div class="top">
             <div class="brand">
@@ -603,7 +789,6 @@
                 </div>
                 <div class="pill">Progreso: <span id="prog">0</span>/40</div>
                 <button class="btn primary" id="startBtn">Iniciar</button>
-                <button class="btn expert" id="expertBtn">Modo Experto</button>
                 <button class="btn danger" id="finishBtn" disabled>Finalizar</button>
                 <button class="btn" id="resetBtn">Reiniciar</button>
             </div>
@@ -716,9 +901,10 @@
 
     <div class="watermark">
         <strong>By Kelvin ZR</strong>
-        <span style="position: absolute; right: 15px; bottom: 0;">v1.1</span>
+        <span style="position: absolute; right: 15px; bottom: 0;">v1.2.1</span>
     </div>
 
+    <!-- Se movió el modal al body antes -->
     <script>
         /* =========================
            CONFIG
@@ -1896,6 +2082,252 @@
             return out;
         }
 
+        /* -------- Banco P-Z -------- */
+        function genPZQuimica() {
+            const out = [];
+            out.push(q("Química", "PZ-1", "Calor específico", "El calor específico de una sustancia es:", [
+                "La temperatura a la cual la sustancia cambia de estado",
+                "El cantidad total de calor en un cuerpo",
+                "La cantidad de calor necesaria para elevar 1°C la temperatura de 1 gramo de masa",
+                "La capacidad de conducir calor circularmente"
+            ], 2));
+            out.push(q("Química", "PZ-1", "Calor específico", "Si se suministra la misma cantidad de calor a masas iguales de agua y cobre, ¿cuál aumenta más su temperatura?", [
+                "El agua, porque tiene mayor calor específico",
+                "Ambos aumentan igual",
+                "El cobre, porque tiene mayor densidad",
+                "El cobre, porque tiene menor calor específico"
+            ], 3));
+            out.push(q("Química", "PZ-2", "Conversión de temperatura", "Para convertir grados Celsius a Kelvin, se debe:", [
+                "Sumar 273.15",
+                "Restar 273.15",
+                "Multiplicar por 1.8 y sumar 32",
+                "Dividir para 273.15"
+            ], 0));
+            out.push(q("Química", "PZ-2", "Conversión de temperatura", "El cero absoluto (0 K) corresponde en grados Celsius a aproximadamente:", [
+                "0 °C",
+                "-100 °C",
+                "273.15 °C",
+                "-273.15 °C"
+            ], 3));
+            out.push(q("Química", "PZ-2", "Conversión de temperatura", "25 °C equivalen a:", [
+                "250 K",
+                "298.15 K",
+                "-248.15 K",
+                "25 K"
+            ], 1));
+            out.push(q("Química", "PZ-3", "Reacciones químicas", "Al reaccionar hidrógeno y oxígeno gaseoso se forma:", [
+                "Dióxido de carbono (CO2)",
+                "Amoníaco (NH3)",
+                "Agua (H2O)",
+                "Peróxido de hidrógeno"
+            ], 2));
+            out.push(q("Química", "PZ-3", "Reacciones químicas", "La ecuación balanceada de la formación de agua es:", [
+                "H2 + O2 -> H2O",
+                "2H2 + O2 -> 2H2O",
+                "H2 + 2O2 -> 2H2O",
+                "2H + O -> H2O"
+            ], 1));
+            out.push(q("Química", "PZ-4", "Estequiometría", "De acuerdo con la ecuación 2H2 + O2 -> 2H2O, ¿cuántas moles de agua se forman a partir de 2 moles de oxígeno diatómico?", [
+                "2 moles",
+                "1 mol",
+                "8 moles",
+                "4 moles"
+            ], 3));
+            // Ejercicios Estequiometría
+            for (const mO2 of [3, 4, 5]) {
+                out.push(q("Química", "PZ-4", "Estequiometría (Cálculo)", `En la reacción 2H2 + O2 -> 2H2O, si reaccionan completamente ${mO2} moles de O2, ¿cuántas moles de H2O se obtienen?`, [
+                    `${mO2 * 2} moles`,
+                    `${mO2} moles`,
+                    `${mO2 / 2} moles`,
+                    `1 mol`
+                ], 0));
+            }
+            return out;
+        }
+
+        function genPZFisica() {
+            const out = [];
+            // Teoría
+            out.push(q("Física", "PZ-1", "MRU", "En el Movimiento Rectilíneo Uniforme (MRU):", [
+                "La velocidad aumenta de forma constante",
+                "La velocidad es constante y la aceleración es nula",
+                "La aceleración es constante",
+                "La trayectoria es circular"
+            ], 1));
+            // Ejercicios MRU
+            for (const v of [15, 20, 25, 30]) {
+                for (const t of [2, 4, 5]) {
+                    const d = v * t;
+                    const correct = `${d} m`;
+                    const opts = unique4(correct, [`${d + 10} m`, `${d - 5} m`, `${v + t} m`]);
+                    out.push(q("Física", "PZ-1", "MRU (Cálculo)", `Un móvil viaja con MRU a una velocidad de ${v} m/s. ¿Qué distancia recorrerá en ${t} s?`, opts, opts.indexOf(correct)));
+                }
+            }
+
+            out.push(q("Física", "PZ-2", "MRUV", "En el Movimiento Rectilíneo Uniformemente Variado (MRUV):", [
+                "La aceleración es constante y distinta de cero",
+                "La velocidad es siempre cero",
+                "La aceleración varía con el tiempo",
+                "La velocidad es constante"
+            ], 0));
+            // Ejercicios MRUV
+            for (const v0 of [0, 5, 10]) {
+                for (const a of [2, 3, 4]) {
+                    for (const t of [3, 5]) {
+                        const vf = v0 + (a * t);
+                        const correct = `${vf} m/s`;
+                        const opts = unique4(correct, [`${vf + 2} m/s`, `${vf - 2} m/s`, `${v0 + a} m/s`]);
+                        out.push(q("Física", "PZ-2", "MRUV (Cálculo)", `Un auto arranca con velocidad inicial de ${v0} m/s y acelera a ${a} m/s². ¿Cuál será su velocidad a los ${t} s?`, opts, opts.indexOf(correct)));
+                    }
+                }
+            }
+
+            out.push(q("Física", "PZ-3", "Movimiento Armónico Simple", "El Movimiento Armónico Simple (MAS) es un movimiento:", [
+                "Que siempre se realiza en forma circular",
+                "Oscilatorio o vibratorio, originado por una fuerza recuperadora",
+                "De aceleración constante y nula",
+                "Donde la velocidad nunca cambia"
+            ], 1));
+            // Ejercicios MAS
+            for (const A of [0.5, 1.2, 2.0]) {
+                for (const f of [2, 5]) {
+                    const T = (1 / f).toFixed(2);
+                    const correct = `${T} s`;
+                    const opts = unique4(correct, [`${(1 / f + 0.5).toFixed(2)} s`, `${f} s`, `${(A * f).toFixed(2)} s`]);
+                    out.push(q("Física", "PZ-3", "Movimiento Armónico Simple", `Si un oscilador armónico tiene una frecuencia f=${f} Hz y amplitud ${A} m, ¿cuál es su periodo T?`, opts, opts.indexOf(correct)));
+                }
+            }
+
+            out.push(q("Física", "PZ-4", "Péndulo simple", "En un péndulo simple, el periodo de oscilación depende de:", [
+                "La masa de la partícula suspendida",
+                "La amplitud inicial (si es pequeña)",
+                "La longitud del hilo y la aceleración de la gravedad",
+                "El material de la masa pequeña"
+            ], 2));
+
+            out.push(q("Física", "PZ-5", "Desintegración radiactiva", "El periodo de semidesintegración de un isótopo es:", [
+                "El tiempo de vida promedio de un solo núcleo",
+                "El tiempo en que la masa desaparece totalmente",
+                "Siempre constante e igual a 1 año para todos los isótopos",
+                "El tiempo necesario para que se desintegre la mitad de los núcleos radiactivos de una muestra"
+            ], 3));
+            // Ejercicios Desintegración
+            for (const mo of [100, 200, 400]) {
+                out.push(q("Física", "PZ-5", "Desintegración radiactiva", `Si tienes una muestra inicial de ${mo} g de un isótopo radiactivo, ¿cuántos gramos quedarán después de 2 periodos de semidesintegración?`, [
+                    `${mo / 2} g`,
+                    `${mo / 4} g`,
+                    `${mo} g`,
+                    `0 g`
+                ], 1));
+            }
+            return out;
+        }
+
+        function genPZMatematicas() {
+            const out = [];
+            out.push(q("Matemáticas", "PZ-1", "Ecuaciones paramétricas del plano", "Para determinar las ecuaciones paramétricas de un plano se necesitan:", [
+                "Solo un vector director",
+                "Un punto y dos vectores directores no paralelos",
+                "Dos puntos únicamente",
+                "Una matriz ortogonal"
+            ], 1));
+            // Ejercicios Plano
+            out.push(q("Matemáticas", "PZ-1", "Ecuaciones paramétricas del plano", "Si un plano pasa por el origen (0,0,0) y tiene como vectores directores u=(1,0,0) y v=(0,1,0), ¿qué plano representa en el espacio?", [
+                "El plano YZ",
+                "El plano XZ",
+                "El plano XY (z = 0)",
+                "Ninguno de los anteriores"
+            ], 2));
+
+            out.push(q("Matemáticas", "PZ-2", "Media aritmética", "La media aritmética de un conjunto de datos se calcula:", [
+                "Ordenando los datos y seleccionando el central",
+                "Escogiendo el valor que más se repite",
+                "Restando el menor al mayor",
+                "Sumando todos los valores y dividiendo entre el número total de datos"
+            ], 3));
+            // Ejercicios Media
+            for (const base of [10, 20]) {
+                for (const diff of [2, 5]) {
+                    const notas = [base, base + diff, base + 2 * diff];
+                    const prom = (notas.reduce((a, b) => a + b) / 3).toFixed(1);
+                    const correct = `${prom}`;
+                    const opts = unique4(correct, [`${(base + diff - 1).toFixed(1)}`, `${(base + 2 * diff).toFixed(1)}`, `${base.toFixed(1)}`]);
+                    out.push(q("Matemáticas", "PZ-2", "Media aritmética", `Calcula la media aritmética del siguiente conjunto de números: ${notas.join(", ")}.`, opts, opts.indexOf(correct)));
+                }
+            }
+
+            out.push(q("Matemáticas", "PZ-3", "Optimización cuadrática", "En una función cuadrática f(x) = ax² + bx + c, si a < 0, el vértice representa:", [
+                "El valor máximo de la función",
+                "El valor mínimo de la función",
+                "Un punto de inflexión",
+                "Una raíz no real"
+            ], 0));
+            // Ejercicios Optimización
+            for (const a of [1, 2]) {
+                for (const b of [4, 8]) {
+                    const c = 5;
+                    const vx = -b / (2 * a);
+                    const vy = a * vx * vx + b * vx + c;
+                    const correct = `Mínimo en (${vx}, ${vy})`;
+                    const opts = unique4(correct, [`Máximo en (${vx}, ${vy})`, `Mínimo en (${-vx}, ${vy})`, `Máximo en (${vx}, ${-vy})`]);
+                    out.push(q("Matemáticas", "PZ-3", "Optimización cuadrática", `Encuentra el vértice y determina si es máximo o mínimo de: f(x) = ${a}x² + ${b}x + ${c}`, opts, opts.indexOf(correct)));
+                }
+            }
+
+            out.push(q("Matemáticas", "PZ-4", "Integral indefinida", "La integral indefinida de una función f(x) es:", [
+                "El área exacta bajo su curva",
+                "Su derivada",
+                "El conjunto de todas sus primitivas, representadas añadiendo una constante C",
+                "El límite cuando x tiende a infinito"
+            ], 2));
+            // Ejercicios Integrales
+            for (const k of [2, 3, 5]) {
+                const correct = `${k}x + C`;
+                const opts = unique4(correct, [`x + ${k}C`, `${k} + C`, `(${k}/2)x² + C`]);
+                out.push(q("Matemáticas", "PZ-4", "Integral indefinida", `Resuelve la integral indefinida: ∫ ${k} dx`, opts, opts.indexOf(correct)));
+            }
+            out.push(q("Matemáticas", "PZ-4", "Integral indefinida", `Resuelve la integral indefinida: ∫ 2x dx`, [
+                "x² + C",
+                "2x² + C",
+                "x + C",
+                "2 + C"
+            ], 0));
+
+            out.push(q("Matemáticas", "PZ-5", "Ecuación de la elipse", "La ecuación general x²/a² + y²/b² = 1, si a > b, representa:", [
+                "Una hipérbola",
+                "Una elipse con eje focal sobre el eje X",
+                "Una circunferencia",
+                "Una parábola"
+            ], 1));
+            // Ejercicios Elipse
+            out.push(q("Matemáticas", "PZ-5", "Ecuación de la elipse", "En la elipse x²/25 + y²/9 = 1, ¿cuál es la longitud de su semieje mayor (a)?", [
+                "25", "9", "5", "3"
+            ], 2));
+            out.push(q("Matemáticas", "PZ-5", "Ecuación de la elipse", "En la elipse x²/16 + y²/4 = 1, ¿cuál es la longitud de su semieje menor (b)?", [
+                "2", "4", "16", "8"
+            ], 0));
+
+            return out;
+        }
+
+        function buildPZBank() {
+            const bank = [];
+            bank.push(...genPZQuimica());
+            bank.push(...genPZFisica());
+            bank.push(...genPZMatematicas());
+
+            const seen = new Set();
+            const uniq = [];
+            for (const item of bank) {
+                const key = item.topic + "|" + item.code + "|" + item.subtema + "|" + item.text + "|" + item.options.join("||") + "|" + item.correct;
+                if (!seen.has(key)) {
+                    seen.add(key);
+                    uniq.push(item);
+                }
+            }
+            return uniq;
+        }
+
         /* =========================
            CONSTRUIR BANCO TOTAL (SIN LÍMITE)
         ========================= */
@@ -2216,13 +2648,27 @@
             if (tick) clearInterval(tick);
             isExpert = (mode === 'expert');
 
-            if (BANK.length === 0) {
-                BANK = buildFullBank();
-            }
-
             let pool = BANK;
 
             // Si es experto filtramos preguntas, evaluamos longitud total de las opciones como indicio de dificultad
+            if (isExpert) {
+                // Selecciona las mitades que son estadísticamente más "largas" (por ende tienen que leer más / rebuscadas)
+                let copy = [...BANK].sort((a, b) => {
+                    const lenA = a.options.join("").length + a.text.length;
+                    const lenB = b.options.join("").length + b.text.length;
+                    return lenB - lenA; // Ordenar más largas primero
+                });
+                pool = copy.slice(0, Math.floor(BANK.length * 0.65)); // Tomamos el top 65% más complejas
+            } else if (mode === 'P-Z') {
+                pool = buildPZBank();
+            } else {
+                if (BANK.length === 0 || (BANK.length > 0 && BANK[0].code.startsWith("PZ-"))) {
+                    BANK = buildFullBank();
+                }
+                pool = BANK;
+            }
+
+            let maxExamSize = Math.min(EXAM_SIZE, pool.length);
             if (isExpert) {
                 // Selecciona las mitades que son estadísticamente más "largas" (por ende tienen que leer más / rebuscadas)
                 let copy = [...BANK].sort((a, b) => {
@@ -2240,18 +2686,18 @@
             }
 
             // Reset history if we don't have enough questions left for an exam
-            if (availableIndices.length < EXAM_SIZE) {
+            if (availableIndices.length < maxExamSize) {
                 usedQuestionsIndices.clear();
                 availableIndices = [];
                 for (let i = 0; i < pool.length; i++) availableIndices.push(i);
             }
 
             shuffle(availableIndices);
-            const chosenIndices = availableIndices.slice(0, EXAM_SIZE);
+            const chosenIndices = availableIndices.slice(0, maxExamSize);
             chosenIndices.forEach(val => usedQuestionsIndices.add(val));
             EXAM = chosenIndices.map(i => pool[i]);
 
-            answers = new Array(EXAM_SIZE).fill(null);
+            answers = new Array(EXAM.length).fill(null);
 
             started = false;
             ended = false;
@@ -2324,11 +2770,60 @@
             resultCard.classList.remove("hide");
         });
 
-        startBtn.addEventListener("click", start);
+        function animateStart(color) {
+            quizCard.style.setProperty('--tint-color', color);
+            quizCard.classList.remove("start-pulse");
+            // Forzar reflow para reiniciar la animación
+            void quizCard.offsetWidth;
+            quizCard.classList.add("start-pulse");
+        }
+
+        startBtn.addEventListener("click", () => {
+            if (started || ended) return;
+            startModal.classList.add("show");
+        });
+
+        normalStartBtn.addEventListener("click", () => {
+            startModal.classList.remove("show");
+            isExpert = false;
+            newAttempt('normal');
+            start();
+            animateStart("rgba(13, 167, 208, 0.6)"); // Celeste/Azul
+        });
+
+        const afStartBtn = document.getElementById("afStartBtn");
+        const goStartBtn = document.getElementById("goStartBtn");
+
+        afStartBtn.addEventListener("click", () => {
+            // No action yet
+            animateStart("rgba(251, 192, 45, 0.6)"); // Amarillo
+        });
+
+        goStartBtn.addEventListener("click", () => {
+            // No action yet
+            animateStart("rgba(11, 95, 179, 0.6)"); // Azul oscuro
+        });
+
+        pzStartBtn.addEventListener("click", () => {
+            startModal.classList.remove("show");
+            isExpert = false; // P-Z tiene reglas diferentes pero visualmente no es "Modo Experto" de 40 min
+            newAttempt('P-Z');
+            start();
+            animateStart("rgba(211, 47, 47, 0.6)"); // Rojo claro
+        });
+
         expertBtn.addEventListener("click", () => {
+            startModal.classList.remove("show");
+            isExpert = true;
             newAttempt('expert');
             start();
+            animateStart("rgba(142, 0, 0, 0.8)"); // Rojo oscuro
         });
+
+        cancelStartBtn.addEventListener("click", () => {
+            startModal.classList.remove("show");
+        });
+
         finishBtn.addEventListener("click", () => finish(false));
         resetBtn.addEventListener("click", () => newAttempt('normal'));
 

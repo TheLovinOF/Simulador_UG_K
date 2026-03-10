@@ -3,6 +3,7 @@
         ========================= */
 const EXAM_SIZE = 40;
 const TOTAL_TIME_SEC = 60 * 60;
+let CURRENT_MODE = "NORMAL";
 
 /* =========================
    UTILIDADES
@@ -1204,6 +1205,148 @@ function buildFullBank() {
     return uniq;
 }
 
+/* -------- Banco P-Z -------- */
+function genPZQuimica() {
+    const out = [];
+    out.push(q("Química", "PZ-1", "Calor específico", "El calor específico de una sustancia es:", [
+        "La temperatura a la cual la sustancia cambia de estado",
+        "El cantidad total de calor en un cuerpo",
+        "La cantidad de calor necesaria para elevar 1°C la temperatura de 1 gramo de masa",
+        "La capacidad de conducir calor circularmente"
+    ], 2));
+    out.push(q("Química", "PZ-1", "Calor específico", "Si se suministra la misma cantidad de calor a masas iguales de agua y cobre, ¿cuál aumenta más su temperatura?", [
+        "El agua, porque tiene mayor calor específico",
+        "Ambos aumentan igual",
+        "El cobre, porque tiene mayor densidad",
+        "El cobre, porque tiene menor calor específico"
+    ], 3));
+    out.push(q("Química", "PZ-2", "Conversión de temperatura", "Para convertir grados Celsius a Kelvin, se debe:", [
+        "Sumar 273.15",
+        "Restar 273.15",
+        "Multiplicar por 1.8 y sumar 32",
+        "Dividir para 273.15"
+    ], 0));
+    out.push(q("Química", "PZ-2", "Conversión de temperatura", "El cero absoluto (0 K) corresponde en grados Celsius a aproximadamente:", [
+        "0 °C",
+        "-100 °C",
+        "273.15 °C",
+        "-273.15 °C"
+    ], 3));
+    out.push(q("Química", "PZ-2", "Conversión de temperatura", "25 °C equivalen a:", [
+        "250 K",
+        "298.15 K",
+        "-248.15 K",
+        "25 K"
+    ], 1));
+    out.push(q("Química", "PZ-3", "Reacciones químicas", "Al reaccionar hidrógeno y oxígeno gaseoso se forma:", [
+        "Dióxido de carbono (CO2)",
+        "Amoníaco (NH3)",
+        "Agua (H2O)",
+        "Peróxido de hidrógeno"
+    ], 2));
+    out.push(q("Química", "PZ-3", "Reacciones químicas", "La ecuación balanceada de la formación de agua es:", [
+        "H2 + O2 -> H2O",
+        "2H2 + O2 -> 2H2O",
+        "H2 + 2O2 -> 2H2O",
+        "2H + O -> H2O"
+    ], 1));
+    out.push(q("Química", "PZ-4", "Estequiometría", "De acuerdo con la ecuación 2H2 + O2 -> 2H2O, ¿cuántas moles de agua se forman a partir de 2 moles de oxígeno diatómico?", [
+        "2 moles",
+        "1 mol",
+        "8 moles",
+        "4 moles"
+    ], 3));
+    return out;
+}
+
+function genPZFisica() {
+    const out = [];
+    out.push(q("Física", "PZ-1", "MRU", "En el Movimiento Rectilíneo Uniforme (MRU):", [
+        "La velocidad aumenta de forma constante",
+        "La velocidad es constante y la aceleración es nula",
+        "La aceleración es constante",
+        "La trayectoria es circular"
+    ], 1));
+    out.push(q("Física", "PZ-2", "MRUV", "En el Movimiento Rectilíneo Uniformemente Variado (MRUV):", [
+        "La aceleración es constante y distinta de cero",
+        "La velocidad es siempre cero",
+        "La aceleración varía con el tiempo",
+        "La velocidad es constante"
+    ], 0));
+    out.push(q("Física", "PZ-3", "Movimiento Armónico Simple", "El Movimiento Armónico Simple (MAS) es un movimiento:", [
+        "Que siempre se realiza en forma circular",
+        "Oscilatorio o vibratorio, originado por una fuerza recuperadora",
+        "De aceleración constante y nula",
+        "Donde la velocidad nunca cambia"
+    ], 1));
+    out.push(q("Física", "PZ-4", "Péndulo simple", "En un péndulo simple, el periodo de oscilación depende de:", [
+        "La masa de la partícula suspendida",
+        "La amplitud inicial (si es pequeña)",
+        "La longitud del hilo y la aceleración de la gravedad",
+        "El material de la masa pequeña"
+    ], 2));
+    out.push(q("Física", "PZ-5", "Desintegración radiactiva", "El periodo de semidesintegración de un isótopo es:", [
+        "El tiempo de vida promedio de un solo núcleo",
+        "El tiempo en que la masa desaparece totalmente",
+        "Siempre constante e igual a 1 año para todos los isótopos",
+        "El tiempo necesario para que se desintegre la mitad de los núcleos radiactivos de una muestra"
+    ], 3));
+    return out;
+}
+
+function genPZMatematicas() {
+    const out = [];
+    out.push(q("Matemáticas", "PZ-1", "Ecuaciones paramétricas del plano", "Para determinar las ecuaciones paramétricas de un plano se necesitan:", [
+        "Solo un vector director",
+        "Un punto y dos vectores directores no paralelos",
+        "Dos puntos únicamente",
+        "Una matriz ortogonal"
+    ], 1));
+    out.push(q("Matemáticas", "PZ-2", "Media aritmética", "La media aritmética de un conjunto de datos se calcula:", [
+        "Ordenando los datos y seleccionando el central",
+        "Escogiendo el valor que más se repite",
+        "Restando el menor al mayor",
+        "Sumando todos los valores y dividiendo entre el número total de datos"
+    ], 3));
+    out.push(q("Matemáticas", "PZ-3", "Optimización cuadrática", "En una función cuadrática f(x) = ax² + bx + c, si a < 0, el vértice representa:", [
+        "El valor máximo de la función",
+        "El valor mínimo de la función",
+        "Un punto de inflexión",
+        "Una raíz no real"
+    ], 0));
+    out.push(q("Matemáticas", "PZ-4", "Integral indefinida", "La integral indefinida de una función f(x) es:", [
+        "El área exacta bajo su curva",
+        "Su derivada",
+        "El conjunto de todas sus primitivas, representadas añadiendo una constante C",
+        "El límite cuando x tiende a infinito"
+    ], 2));
+    out.push(q("Matemáticas", "PZ-5", "Ecuación de la elipse", "La ecuación general x²/a² + y²/b² = 1, si a > b, representa:", [
+        "Una hipérbola",
+        "Una elipse con eje focal sobre el eje X",
+        "Una circunferencia",
+        "Una parábola"
+    ], 1));
+    return out;
+}
+
+function buildPZBank() {
+    const bank = [];
+    bank.push(...genPZQuimica());
+    bank.push(...genPZFisica());
+    bank.push(...genPZMatematicas());
+
+    const seen = new Set();
+    const uniq = [];
+    for (const item of bank) {
+        const key = item.topic + "|" + item.code + "|" + item.subtema + "|" + item.text + "|" + item.options.join("||") + "|" + item.correct;
+        if (!seen.has(key)) {
+            seen.add(key);
+            uniq.push(item);
+        }
+    }
+    return uniq;
+}
+
 /* =========================
    EXAMEN: 40 aleatorias del banco total
 ========================= */
@@ -1243,6 +1386,11 @@ const backBtn = document.getElementById("backBtn");
 const schoolInp = document.getElementById("school");
 const calcBtn = document.getElementById("calcBtn");
 const calcBox = document.getElementById("calcBox");
+
+const startModal = document.getElementById("startModal");
+const normalStartBtn = document.getElementById("normalStartBtn");
+const pzStartBtn = document.getElementById("pzStartBtn");
+const cancelStartBtn = document.getElementById("cancelStartBtn");
 
 /* =========================
    Estado
@@ -1362,9 +1510,15 @@ function finish(auto) {
 function newAttempt() {
     if (tick) clearInterval(tick);
 
-    if (BANK.length === 0) {
-        BANK = buildFullBank();
+    if (CURRENT_MODE === "P-Z") {
+        BANK = buildPZBank();
+    } else {
+        if (BANK.length === 0 || (BANK.length > 0 && BANK[0].code.startsWith("PZ-"))) {
+            BANK = buildFullBank();
+        }
     }
+
+    let maxExamSize = Math.min(EXAM_SIZE, BANK.length);
 
     // Available questions filtering
     let availableIndices = [];
@@ -1373,18 +1527,18 @@ function newAttempt() {
     }
 
     // Reset history if we don't have enough questions left for an exam
-    if (availableIndices.length < EXAM_SIZE) {
+    if (availableIndices.length < maxExamSize) {
         usedQuestionsIndices.clear();
         availableIndices = [];
         for (let i = 0; i < BANK.length; i++) availableIndices.push(i);
     }
 
     shuffle(availableIndices);
-    const chosenIndices = availableIndices.slice(0, EXAM_SIZE);
+    const chosenIndices = availableIndices.slice(0, maxExamSize);
     chosenIndices.forEach(val => usedQuestionsIndices.add(val));
     EXAM = chosenIndices.map(i => BANK[i]);
 
-    answers = new Array(EXAM_SIZE).fill(null);
+    answers = new Array(EXAM.length).fill(null);
 
     started = false;
     ended = false;
@@ -1404,11 +1558,11 @@ function newAttempt() {
     resultCard.classList.add("hide");
 
     // Info banco + cobertura por tema
-    const by = { Matemáticas: 0, Lenguaje: 0, Física: 0 };
+    const by = { Matemáticas: 0, Lenguaje: 0, Física: 0, Química: 0 };
     for (const it of BANK) if (by[it.topic] !== undefined) by[it.topic]++;
     bankInfo.textContent =
         `Banco total cargado: ${BANK.length} preguntas (Usadas: ${usedQuestionsIndices.size}).\n` +
-        `Matemáticas: ${by.Matemáticas} • Lenguaje: ${by.Lenguaje} • Física: ${by.Física}\n` +
+        `Matemáticas: ${by.Matemáticas} • Lenguaje: ${by.Lenguaje} • Física: ${by.Física} • Química: ${by.Química}\n` +
         `No se repetirán hasta agotar el banco de preguntas.`;
 }
 
@@ -1440,7 +1594,29 @@ backBtn.addEventListener("click", () => {
     qArea.classList.add("hide");
 });
 
-startBtn.addEventListener("click", start);
+startBtn.addEventListener("click", () => {
+    if (started || ended) return;
+    startModal.classList.add("show");
+});
+
+normalStartBtn.addEventListener("click", () => {
+    startModal.classList.remove("show");
+    CURRENT_MODE = "NORMAL";
+    newAttempt();
+    start();
+});
+
+pzStartBtn.addEventListener("click", () => {
+    startModal.classList.remove("show");
+    CURRENT_MODE = "P-Z";
+    newAttempt();
+    start();
+});
+
+cancelStartBtn.addEventListener("click", () => {
+    startModal.classList.remove("show");
+});
+
 finishBtn.addEventListener("click", () => finish(false));
 resetBtn.addEventListener("click", newAttempt);
 
