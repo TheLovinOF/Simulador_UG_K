@@ -2795,12 +2795,18 @@
         const goStartBtn = document.getElementById("goStartBtn");
 
         afStartBtn.addEventListener("click", () => {
-            // No action yet
+            startModal.classList.remove("show");
+            isExpert = false;
+            newAttempt('P-Z');
+            start();
             animateStart("rgba(251, 192, 45, 0.6)"); // Amarillo
         });
 
         goStartBtn.addEventListener("click", () => {
-            // No action yet
+            startModal.classList.remove("show");
+            isExpert = false;
+            newAttempt('P-Z');
+            start();
             animateStart("rgba(11, 95, 179, 0.6)"); // Azul oscuro
         });
 
